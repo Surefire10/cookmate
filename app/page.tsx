@@ -106,7 +106,7 @@ export default function HomePage() {
          CookMate!
         </span></Title>
       <Text ta = "center" size = "xl">Share your love for cooking, discover new recipes and more!</Text>
-      <Text ta = "center" size = "xl">Don't have an account? <span className={classes["span-highlight"]}>
+      <Text ta = "center" size = "xl">Don&apos;t have an account? <span className={classes["span-highlight"]}>
         <Link href="/components/sign-up">Sign up here!</Link> </span></Text>
     </div>
     <div className={classes["log-in-box"]}>
