@@ -3,7 +3,7 @@
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from 'react';
 import { Container, Anchor, Group, Burger, Box, Text, Title } from '@mantine/core';
-import classes from './home.module.css';
+import classes from './compose.module.css';
 import { Home, User, BookOpen } from "react-feather";
 
 const links = [
@@ -86,7 +86,7 @@ function MainArea(){
 
 
 
-export default function HomePage() {
+export default function Compose() {
 
     return(
         <>
