@@ -39,11 +39,11 @@ function LogInForm(){
 
     }}
     validationSchema={validationSchema}
-    onSubmit={(userValues)=>{
+    onSubmit={(userValues : any)=>{
       console.log(userValues)
     }}
     >
-      {(props) => (
+      {(props: any)  => (
          <Form>
          <Field name='username'>
           {({ field, form }:any) => (
