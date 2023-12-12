@@ -2,6 +2,7 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
+import { ColorModeProvider } from "@chakra-ui/react";
 
 export const metadata = {
   title: "Mantine Next.js template",
@@ -12,7 +13,7 @@ export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en">
       <head>
-        <ColorSchemeScript defaultColorScheme="dark" />
+        <ColorSchemeScript forceColorScheme="dark" />
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark" theme={theme}>{children}</MantineProvider>
+        <MantineProvider forceColorScheme="dark" theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );
