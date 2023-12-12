@@ -2,7 +2,7 @@
 
 import { Title, Box, Text } from "@mantine/core"
 import { Field,Form,Formik  } from "formik"
-import {FormControl,FormLabel,Input,FormErrorMessage, Button, Container} from "@chakra-ui/react"
+import {FormControl,Input,FormErrorMessage, Button, Container} from "@chakra-ui/react"
 import classes from "./sign-up.module.css"
 import * as Yup from "yup"
 import Link from "next/link"
