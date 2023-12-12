@@ -86,7 +86,7 @@ function MainArea(){
 
 
 
-export default function Compose() {
+export default function UserProfile() {
 
     return(
         <>
