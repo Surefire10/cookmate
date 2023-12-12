@@ -1,0 +1,112 @@
+
+
+.header{
+
+    background-color: whitesmoke;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    
+}
+
+.container{
+
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    height: 100vh;
+}
+
+.title{
+
+    background-color:#f4cd32;
+    color:black;
+    padding: 0.5rem;
+    font-size: 3.0rem;
+    text-align: center;
+    margin: auto;
+}
+
+
+
+.navbar{
+
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+
+    
+
+}
+
+.main{
+
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+
+
+}
+
+.nav-link{
+
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin: 1.5rem;
+    text-decoration: none;
+    color: whitesmoke;
+
+}
+
+.icon{
+
+    vertical-align: middle;
+    font-size: 1.9rem;
+}
+
+
+.nav-link:hover{
+
+   background-color: grey;
+   color: whitesmoke;
+
+}
+
+
+
+.footer{
+
+    
+    padding: 2.0rem;
+    border-top: 1px solid grey;
+
+}
+
+
+.main-area{
+
+    background-color: rgb(228, 226, 226);
+    width: 60%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+}
+
+.recipe-container{
+
+    width: 80%;
+    border: 1px dotted #f4cd32 ;
+    margin: 0 auto;
+}
+
+
+
