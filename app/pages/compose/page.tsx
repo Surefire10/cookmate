@@ -3,14 +3,14 @@
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from 'react';
 import { Container, Anchor, Group, Burger, Box, Text, Title } from '@mantine/core';
-import classes from './user.module.css';
+import classes from './compose.module.css';
 import { Home, User, BookOpen } from "react-feather";
 
 const links = [
 
-    {link:"../", label: "Home" ,icon: <Home className={classes.icon}/>},
-    {link:"../components/user", label: "My Profile",icon: <User className={classes.icon}/>},
-    {link:"../components/compose", label: "New Recipe",icon: <BookOpen className={classes.icon}/>},
+    {link:"./home", label: "Home" ,icon: <Home className={classes.icon}/>},
+    {link:"./user", label: "My Profile",icon: <User className={classes.icon}/>},
+    {link:"./compose", label: "New Recipe",icon: <BookOpen className={classes.icon}/>},
 
 ]
 
@@ -21,7 +21,7 @@ function Header(){
 
         <header className={classes.header}>
                 <Box className={classes.title}>
-                    <Title fw= {700} order={1}>CookMate</Title>
+                    <Title fw= {700} order={1}> COMPOSE</Title>
                 </Box>
         </header>
 
@@ -86,7 +86,7 @@ function MainArea(){
 
 
 
-export default function UserProfile() {
+export default function Compose() {
 
     return(
         <>

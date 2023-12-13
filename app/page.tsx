@@ -9,9 +9,9 @@ import { Home, User, BookOpen } from "react-feather";
 
 const links = [
 
-    {link:"./home", label: "Home" ,icon: <Home className={classes.icon}/>},
-    {link:"./user", label: "My Profile",icon: <User className={classes.icon}/>},
-    {link:"./compose", label: "New Recipe",icon: <BookOpen className={classes.icon}/>},
+    {link:"./pages/home", label: "Home" ,icon: <Home className={classes.icon}/>},
+    {link:"./pages/user", label: "My Profile",icon: <User className={classes.icon}/>},
+    {link:"./pages/compose", label: "New Recipe",icon: <BookOpen className={classes.icon}/>},
 
 ]
 

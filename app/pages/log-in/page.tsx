@@ -107,7 +107,7 @@ export default function LogInPage() {
         </span></Title>
       <Text ta = "center" size = "xl">Share your love for cooking, discover new recipes and more!</Text>
       <Text ta = "center" size = "xl">Don&apos;t have an account? <span className={classes["span-highlight"]}>
-        <Link href="/components/sign-up">Sign up here!</Link> </span></Text>
+        <Link href="/pages/sign-up">Sign up here!</Link> </span></Text>
     </div>
     <div className={classes["log-in-box"]}>
       <Title ta = "center" order={1}>Log back in now!</Title>

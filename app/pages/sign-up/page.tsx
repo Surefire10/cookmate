@@ -145,7 +145,7 @@ export default function SignUpPage() {
         {" "} CookMate?
         </span></Title>
         <Text ta = "center" size = "xl">Already have an account? <span className={classes["span-highlight"]}>
-        <Link href="../components/log-in"> Log in here!</Link> </span></Text>
+        <Link href="../pages/log-in"> Log in here!</Link> </span></Text>
     
 
     </div>
