@@ -21,8 +21,11 @@ model User {
 model Recipe {
   id        Int      @id @default(autoincrement())
   name      String
-  published_by     String   
-  content     String
+  published_by     String
+  heading          String   
+  ingredients     String[]
+  directions     String[]
+  additional String
   rating      Int 
   createdAt DateTime @default(now())
 }

@@ -35,19 +35,32 @@ export async function POST(req : Request){
 export async function GET(req:Request){
     
     try{
-        const recipes = prisma.recipe.findMany();
-        return Response.json(recipes,{status: 200})
+        const recipes = await prisma.recipe.findMany();
+        return Response.json({recipes})
 
 
     }catch(error){
 
-        return Response.json({message: "OOPS",status: 200})
+        return Response.json({message: "OOPS",status: 500})
 
     }
 }
 
 
+export async function DELETE(req:Request){
 
+    try{
+        const recipes = await prisma.recipe.deleteMany({});
+        return Response.json({recipes})
+
+
+    }catch(error){
+
+        return Response.json({message: "OOPS",status: 500})
+
+    }
+
+}
 
 
 
