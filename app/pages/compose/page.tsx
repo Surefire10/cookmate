@@ -21,7 +21,7 @@ function Header(){
 
         <header className={classes.header}>
                 <Box className={classes.title}>
-                    <Title fw= {700} order={1}> COMPOSE</Title>
+                    <Title fw= {700} order={1}>CookMate</Title>
                 </Box>
         </header>
 
