@@ -7,6 +7,7 @@ import { Container, Anchor, Group, Burger, Box, Text, Title } from '@mantine/cor
 import classes from './page.module.css';
 import { Home, User, BookOpen } from "react-feather";
 
+const response = fetch("../app/api/recipe-controller")
 const links = [
 
     {link:"./pages/home", label: "Home" ,icon: <Home className={classes.icon}/>},
@@ -75,14 +76,15 @@ return(
 }
 
 
-function MainArea(){
+ function MainArea(){
 
+    
 
     return(
 
         <Container className={classes["main-area"]}>
                 <div className={classes["recipe-container"]}>
-
+                
                 </div>
         </Container>
     )
