@@ -13,9 +13,13 @@ export async function POST(req : Request){
 
         data:{
 
+        
             name:body.name,
-            published_by: body.published_by,  
-            content: body.content,
+            published_by: body.published_by,
+            heading: body.heading,
+            ingredients: body.ingredients,
+            directions: body.directions,
+            additional: body.additional,
             rating: body.rating
             
         },
