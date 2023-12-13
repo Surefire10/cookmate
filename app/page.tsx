@@ -24,6 +24,7 @@ function Header(){
                 <Box className={classes.title}>
                     <Title fw= {700} order={1}>CookMate</Title>
                 </Box>
+
         </header>
 
     )
@@ -59,7 +60,12 @@ return(
             {items}
         </div>
         <div className={classes.footer}>
-            foooot
+            <div>
+                Log out
+            </div>
+            <div>
+                Create an Account
+            </div>
         </div>
     </nav>
 
