@@ -84,7 +84,10 @@
 
 .nav-link{
 
-    font-size: 1.0rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     margin-top:2.0rem;
     text-decoration: none;
     color: whitesmoke;
@@ -93,10 +96,19 @@
 
 }
 
+.nav-link a{
+
+    text-decoration: none;
+    color: whitesmoke;
+
+
+}
+
 .icon{
 
     vertical-align: middle;
     font-size: 1.9rem;
+    margin-right: 0.3rem;
 }
 
 

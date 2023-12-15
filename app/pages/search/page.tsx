@@ -59,19 +59,20 @@ function Navbar(){
     const[active , setActive] = useState("Home")
     const items = links.map((item) =>{
 
-       return( 
-        <a 
-        href={item.link}
-        key={item.label}
-        className={classes["nav-link"]}
-        data-active={item.label === active || undefined}
-        onClick={(event) =>{
-            setActive(item.label)
-        }}
-        >
-           {item.icon} {item.label}
-        </a>
-       )
+        return( 
+            <div className={classes["nav-link"]} >
+                <a 
+                href={item.link}
+                key={item.label}
+                data-active={item.label === active || undefined}
+                onClick={(event) =>{
+                    setActive(item.label)
+                }}
+                >
+                {item.icon} {item.label}
+                </a>
+            </div>
+           )
     })
     
 
