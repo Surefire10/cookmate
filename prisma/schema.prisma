@@ -10,7 +10,7 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
  
-model User {
+model Users {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
@@ -18,7 +18,7 @@ model User {
   createdAt DateTime @default(now())
 }
 
-model Recipe {
+model Recipes {
   id        Int      @id @default(autoincrement())
   name      String
   published_by     String
@@ -29,5 +29,6 @@ model Recipe {
   rating      Int 
   createdAt DateTime @default(now())
 }
+
 
 

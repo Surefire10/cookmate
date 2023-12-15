@@ -21,13 +21,6 @@
     height: 100vh;
 }
 
-.loader{
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .title{
 
     display: flex;
@@ -208,5 +201,23 @@
 .title-box{
 
     padding: 2.0rem;
+}
+
+.loader{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+    margin: 2.0rem;
+    width: 90%;
 }
 

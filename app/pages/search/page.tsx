@@ -1,10 +1,10 @@
 "use client"
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Container, Autocomplete, Rating, Box, Text, Title, ScrollArea } from '@mantine/core';
-import classes from './page.module.css';
-import { Home, User, BookOpen, } from "react-feather";
+import classes from './search.module.css';
+import { Home, User, BookOpen, AlertTriangle } from "react-feather";
 import { Recipes } from "@prisma/client";
 import Link from 'next/link';
 
@@ -15,10 +15,6 @@ const links = [
     {link:"../pages/compose", label: "New Recipe",icon: <BookOpen className={classes.icon}/>},
 
 ]
-
-
-
-
 function Header(){
 
 
@@ -33,11 +29,9 @@ function Header(){
         console.log(encodedSearchQuery)
 
         router.push("/pages/search?q="+encodedSearchQuery)
-        }
-        else{
-            return
-        }
 
+        }
+      
     }   
 
     return(
@@ -63,7 +57,6 @@ function Header(){
 function Navbar(){
 
     const[active , setActive] = useState("Home")
-    console.log(active)
     const items = links.map((item) =>{
 
        return( 
@@ -148,17 +141,22 @@ function Stars({number, id}: any){
 
     const[recipes, setRecipes] = useState<Recipes[]>([])
     const [isLoading, setLoading] = useState(true)
+    const searchParams = useSearchParams()
+    const searchQuery = searchParams.get("q")
+    console.log(searchQuery)
 
+    
     useEffect(()=>{
 
         const getData = async () =>{
-                const url = "/api/recipe-controller"
+                const url = "/api/search?q="+searchQuery
             try{
 
                 const response = await fetch(url)
-                console.log(response.status)
+                
                 let data = await response.json() as Recipes[]
                 setLoading(false)
+                console.log(data)
                 setRecipes(data)
             }catch(error){
 
@@ -169,19 +167,16 @@ function Stars({number, id}: any){
 
         getData()
         
-    },[])
+    },[searchQuery])
     return(
         <ScrollArea  className={classes["main-area"]}>
         <Container>
-            {isLoading?   
+            {isLoading?       
             <div className = {classes.loader}>
             <ReactLoading 
             type='balls' ></ReactLoading>
-            </div>    
-            
-            :
-
-            recipes.map((item)=>{
+            </div>  
+            : recipes.length !== 0? recipes.map((item)=>{
                 
                 return(
                     <div className={classes["recipe-container"]}>
@@ -231,7 +226,10 @@ function Stars({number, id}: any){
 
                 )
 
-            })}
+            }) : <div className={classes.empty}>
+                    <AlertTriangle></AlertTriangle>
+                  <Text>No Recipes Match This Search Currently. Try Another Search</Text>  
+                </div>}
             
         
         </Container>
