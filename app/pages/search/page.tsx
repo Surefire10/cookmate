@@ -2,7 +2,6 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Container, Autocomplete, Rating, Box, Text, Title, ScrollArea } from '@mantine/core';
 import classes from './search.module.css';
 import { Home, User, BookOpen, AlertTriangle } from "react-feather";
 import { Recipes } from "@prisma/client";
@@ -37,17 +36,15 @@ function Header(){
     return(
 
         <header className={classes.header}>
-            <Box className={classes.title}>
-            <Title fw= {700} order={1}><Link href ="../">CookMate</Link></Title>
-            </Box>
+            <div className={classes.title}>
+            <h1><Link href ="../">CookMate</Link></h1>
+            </div>
             <div className={classes.search}>
-                    <Autocomplete
+                    <div
                         placeholder="Search Recipes Now!"
-                        data={['Chicken', 'Beef', 'Noodles', 'Pizza']}
-                        onChange={(value)=>{setSearchQuery(value)}}
                         onKeyUp={(e)=>{onSearch(e)}}>
                     
-                    </Autocomplete>
+                    </div>
                 </div>   
         </header>
 
@@ -130,7 +127,7 @@ function Stars({number, id}: any){
    
     return(
 
-        <Rating value={rating} onChange={(rating) => handleRating(rating)}></Rating>
+        <div>stars</div>
     )
    
 
@@ -170,8 +167,8 @@ function Stars({number, id}: any){
         
     },[searchQuery])
     return(
-        <ScrollArea  className={classes["main-area"]}>
-        <Container>
+        <div  className={classes["main-area"]}>
+        <div>
             {isLoading?       
             <div className = {classes.loader}>
             <ReactLoading 
@@ -182,16 +179,16 @@ function Stars({number, id}: any){
                 return(
                     <div className={classes["recipe-container"]}>
                         <div className={classes["recipe-title"]}>
-                            <Title order = {2}>{item.name}</Title>
+                            <h2>{item.name}</h2>
                             <div className={classes["recipe-rating"]}>
                                 <Stars id = {item.id} number = {item.rating}></Stars>
                             </div>
                         </div>
                         <div className={classes["recipe-heading"]}>
-                            <Text size='fw'>{item.heading}</Text>
+                            <p>{item.heading}</p>
                         </div>
                         <div className={classes["recipe-ingredients"]}>
-                             <Title order = {3}>Ingredients:</Title>
+                             <h3>Ingredients:</h3>
                              <ul>
                              {item.ingredients.map((ingredient)=>{
                                 
@@ -204,7 +201,7 @@ function Stars({number, id}: any){
                         </div>
 
                         <div className={classes["recipe-directions"]}>
-                             <Title order = {3}>Directions:</Title>
+                             <h3>Directions:</h3>
                              <ul>
                              {item.directions.map((directions)=>{
                                 
@@ -217,7 +214,7 @@ function Stars({number, id}: any){
                         </div>
 
                         <div className={classes["recipe-additional"]}>
-                            <Text size='fw'>{item.additional}</Text>
+                            <p>{item.additional}</p>
                         </div>
 
                         
@@ -229,12 +226,12 @@ function Stars({number, id}: any){
 
             }) : <div className={classes.empty}>
                     <AlertTriangle></AlertTriangle>
-                  <Text>No Recipes Match This Search Currently. Try Another Search</Text>  
+                  <p>No Recipes Match This Search Currently. Try Another Search</p>  
                 </div>}
             
         
-        </Container>
-    </ScrollArea>
+        </div>
+    </div>
     )
 
 

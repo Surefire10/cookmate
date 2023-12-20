@@ -2,11 +2,13 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Container, Autocomplete, Rating, Box, Text, Title, ScrollArea } from '@mantine/core';
 import classes from './page.module.css';
 import { Home, User, BookOpen, } from "react-feather";
 import { Recipes } from "@prisma/client";
 import Link from 'next/link';
+import { SessionProvider } from 'next-auth/react';
+import { Session } from 'next-auth';
+import { AppProps } from 'next/app';
 
 const links = [
 
@@ -43,17 +45,17 @@ function Header(){
     return(
 
         <header className={classes.header}>
-            <Box className={classes.title}>
-            <Title fw= {700} order={1}><Link href ="../">CookMate</Link></Title>
-            </Box>
+            <div className={classes.title}>
+            <h1><Link href ="../">CookMate</Link></h1>
+            </div>
             <div className={classes.search}>
-                    <Autocomplete
+                    {/* <Autocomplete
                         placeholder="Search Recipes Now!"
                         data={['Chicken', 'Beef', 'Noodles', 'Pizza']}
                         onChange={(value)=>{setSearchQuery(value)}}
                         onKeyUp={(e)=>{onSearch(e)}}>
                     
-                    </Autocomplete>
+                    </Autocomplete> */}
                 </div>   
         </header>
 
@@ -90,11 +92,9 @@ return(
             {items}
         </div>
         <div className={classes.footer}>
-            <div>
-                Log out
-            </div>
-            <div>
-                Create an Account
+            <div className={classes.links}>
+                <Link href={"pages/log-in"}>Log in</Link>
+                <Link href={"pages/sign-up"}>Create an account</Link>
             </div>
         </div>
     </nav>
@@ -137,7 +137,7 @@ function Stars({number, id}: any){
    
     return(
 
-        <Rating value={rating} onChange={(rating) => handleRating(rating)}></Rating>
+        <div>stars</div>
     )
    
 
@@ -172,8 +172,8 @@ function Stars({number, id}: any){
         
     },[])
     return(
-        <ScrollArea  className={classes["main-area"]}>
-        <Container>
+        <div  className={classes["main-area"]}>
+        <div>
             {isLoading?   
             <div className = {classes.loader}>
             <ReactLoading 
@@ -187,16 +187,16 @@ function Stars({number, id}: any){
                 return(
                     <div className={classes["recipe-container"]}>
                         <div className={classes["recipe-title"]}>
-                            <Title order = {2}>{item.name}</Title>
+                            <h2>{item.name}</h2>
                             <div className={classes["recipe-rating"]}>
                                 <Stars id = {item.id} number = {item.rating}></Stars>
                             </div>
                         </div>
                         <div className={classes["recipe-heading"]}>
-                            <Text size='fw'>{item.heading}</Text>
+                            <p>{item.heading}</p>
                         </div>
                         <div className={classes["recipe-ingredients"]}>
-                             <Title order = {3}>Ingredients:</Title>
+                             <h3>Ingredients:</h3>
                              <ul>
                              {item.ingredients.map((ingredient)=>{
                                 
@@ -209,7 +209,7 @@ function Stars({number, id}: any){
                         </div>
 
                         <div className={classes["recipe-directions"]}>
-                             <Title order = {3}>Directions:</Title>
+                             <h3>Directions:</h3>
                              <ul>
                              {item.directions.map((directions)=>{
                                 
@@ -222,7 +222,7 @@ function Stars({number, id}: any){
                         </div>
 
                         <div className={classes["recipe-additional"]}>
-                            <Text size='fw'>{item.additional}</Text>
+                            <p>{item.additional}</p>
                         </div>
 
                         
@@ -235,8 +235,8 @@ function Stars({number, id}: any){
             })}
             
         
-        </Container>
-    </ScrollArea>
+        </div>
+    </div>
     )
 
 
@@ -245,15 +245,19 @@ function Stars({number, id}: any){
 
 
 
-export default function HomePage() {
+export default function HomePage()
+
+ {
 
     return(
-        <>
+        
+        <SessionProvider>
         <Header/>
         <div className={classes.container}>
             <Navbar/>
             <MainArea/>
         </div>
-        </>
+        </SessionProvider>
+        
     )
 }

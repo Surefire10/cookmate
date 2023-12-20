@@ -1,19 +1,17 @@
-import "@mantine/core/styles.css";
+"use client"
 import React from "react";
-import { MantineProvider, ColorSchemeScript } from "@mantine/core";
-import { theme } from "../theme";
-import { ColorModeProvider } from "@chakra-ui/react";
+import {SessionProvider} from "next-auth/react"
 
-export const metadata = {
-  title: "Mantine Next.js template",
-  description: "I am using Mantine with Next.js!",
-};
 
-export default function RootLayout({ children }: { children: any }) {
+export default function RootLayout({ children }: 
+  { children: any }, 
+
+  
+      
+  ) {
   return (
     <html lang="en">
       <head>
-        <ColorSchemeScript forceColorScheme="dark" />
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
@@ -21,7 +19,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider forceColorScheme="dark" theme={theme}>{children}</MantineProvider>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

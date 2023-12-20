@@ -1,11 +1,13 @@
 "use client"
 
-import { Title, Box, Text } from "@mantine/core"
 import { Field,Form,Formik  } from "formik"
 import {FormControl,Input,FormErrorMessage, Button, Container} from "@chakra-ui/react"
 import classes from "./sign-up.module.css"
 import * as Yup from "yup"
+import { useRouter } from "next/navigation";
+
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 
 const style = {
@@ -35,6 +37,45 @@ const validationSchema = Yup.object({
 
 function SignUpForm(){
 
+
+  const router = useRouter()
+
+    const submitUser = async (values: any) =>{
+      const body = {values}
+
+      try{
+
+        const response = await fetch("/api/auth/register",{
+
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body:JSON.stringify(body)
+    
+        })
+        if(response.status !== 200){
+
+          console.log("user not registered")
+          return(body)
+        }else{
+
+          console.log("user registered")
+          router.push("../")
+
+
+        }
+
+
+      }catch(error){
+
+        console.log("user not registered")
+
+
+      }
+   
+    
+  }
+
+
   return (
   <Container>
    <Formik 
@@ -46,9 +87,7 @@ function SignUpForm(){
 
     }}
     validationSchema={validationSchema}
-    onSubmit={(userValues)=>{
-      console.log(userValues)
-    }}
+    onSubmit={(userValues)=>{}}
     >
       {(props) => (
          <Form className={classes["sign-up-form"]}>
@@ -67,7 +106,7 @@ function SignUpForm(){
         <Field name='email'>
           {({ field, form }:any) => (
             <FormControl isInvalid={form.errors.email && form.touched.email}>
-              <Input style={form.errors.email && form.touched.email? styleError : style } 
+              <Input  style={form.errors.email && form.touched.email? styleError : style }  
               {...field} placeholder='Email' />
               <FormErrorMessage className= {classes["error-message"]}>{form.errors.email}</FormErrorMessage>
             </FormControl>
@@ -110,6 +149,7 @@ function SignUpForm(){
           colorScheme='teal'
           isLoading={props.isSubmitting}
           type='submit'
+          onClick={(userValues)=>{submitUser(userValues)}}
           >
           Submit
       </Button>
@@ -123,11 +163,9 @@ function SignUpForm(){
     </Container>
   )
 
-
+          }
    
   
-  
-}
 
 
 export default function SignUpPage() {
@@ -137,27 +175,24 @@ export default function SignUpPage() {
 
   return(
 
-  <>
-  <Box className = {classes.box} component='div'>
+  <div className = {classes.box} >
     <div className={classes["title-box"]}>
-      <Title ta = "center"  order={1}>New to  
+      <h1>New to  
       <span className = {classes.highlight}>
         {" "} CookMate?
-        </span></Title>
-        <Text ta = "center" size = "xl">Already have an account? <span className={classes["span-highlight"]}>
-        <Link href="../pages/log-in"> Log in here!</Link> </span></Text>
-    
-
+        </span></h1>
+        <p >Already have an account? <span className={classes["span-highlight"]}>
+        <Link href="../pages/log-in"> Log in here!</Link> </span></p>
     </div>
     <div className={classes["sign-up-box"]}>
-      <Title ta = "center" order={1}>Create a new Account!</Title>
-      <Text ta = "center" size = "xl">Share your love for cooking, discover new recipes and more!</Text>
+      <h1>Create a new Account!</h1>
+      <p >Share your love for cooking, discover new recipes and more!</p>
       <div>
         <SignUpForm/>
       </div>
     </div>
-  </Box>
-  </>
+  </div>
+  
   
   )
 }

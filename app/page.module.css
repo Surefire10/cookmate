@@ -129,6 +129,18 @@
 
 }
 
+.links{
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.links a{
+
+    text-decoration: none;
+    color:aliceblue
+}
 
 .main-area{
 

@@ -1,12 +1,13 @@
 
 "use client"
-import { useDisclosure } from "@mantine/hooks";
-import { useEffect, useState } from 'react';
-import { Container, Box,Button, Text, Textarea, Title } from '@mantine/core';
+import { useState } from 'react';
 import classes from './compose.module.css';
 import { Home, User, BookOpen } from "react-feather";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SessionProvider, useSession } from "next-auth/react";
+import { AppProps } from "next/app";
+import { Session } from 'next-auth';
 
 const links = [
 
@@ -22,9 +23,9 @@ function Header(){
     return(
 
         <header className={classes.header}>
-                <Box className={classes.title}>
-                    <Title fw= {700} order={1}><Link href ="../">CookMate</Link></Title>
-                </Box>
+                <div className={classes.title}>
+                    <h1><Link href ="../">CookMate</Link></h1>
+                </div>
         </header>
 
     )
@@ -37,12 +38,12 @@ function MainArea(){
 
     const starterArray1 = [
 
-        <Textarea></Textarea>
+        <input></input>
     ]
 
     const starterArray2 = [
 
-        <Textarea></Textarea>
+        <input></input>
     ]
 
     const [recipeTitle ,setTitle] = useState("")
@@ -62,7 +63,8 @@ function MainArea(){
         setNumber(existing =>{
 
             return [
-                ...existing, <Textarea></Textarea>
+                ...existing,<input></input>
+
             ]
         })
 
@@ -74,7 +76,7 @@ function MainArea(){
         setNumberOfSteps(existing =>{
 
             return [
-                ...existing, <Textarea></Textarea>
+                ...existing,<input></input>
             ]
         })
 
@@ -124,47 +126,47 @@ function MainArea(){
 
     return(
 
-        <Container className={classes["main-area"]}>
+        <div className={classes["main-area"]}>
             <div className={classes.prompt}>
-                <Title>Submit a new Recipe?</Title>
-                <Text size="lg">Fill in the fields below!</Text>
+                <h2>Submit a new Recipe?</h2>
+                <p>Fill in the fields below!</p>
             </div>
-            <Textarea size={"xl"} required  onChange = {(e)=>setTitle(e.target.value)} label={"What's your recipe called?"}></Textarea>
-            <Textarea size={"xl"} onChange = {(e)=>setHeading(e.target.value)} label={"Write a small intro for your recipe"}></Textarea>
+            <textarea required  onChange = {(e)=>setTitle(e.target.value)}></textarea>
+            <textarea  onChange = {(e)=>setHeading(e.target.value)}></textarea>
            
             <div className={classes.ingredients}>
                 <div className={classes["title-and-button"]}>
-                    <Text size={"xl"}>Ingredients</Text>
-                    <Button className = {classes.add} onClick={handleAdd}>+</Button>
+                    <p >Ingredients</p>
+                    <button className = {classes.add} onClick={handleAdd}>+</button>
                 </div>
                 {ingredientArray.map((item, index)=>{
 
                     return(
 
-                        <Textarea className={classes["dynamic-field"]} onChange = {(e)=>setIngredients(current => [...current, e.target.value])}></Textarea>
+                        <textarea className={classes["dynamic-field"]} onChange = {(e)=>setIngredients(current => [...current, e.target.value])}></textarea>
                     )
                 })
                 }
             </div>    
             <div className={classes.steps}>
                 <div className={classes["title-and-button"]}>
-                <Text size={"xl"}>Steps</Text>
-                <Button className = {classes.add} onClick={handleAddSteps}>+</Button>
+                <p>Steps</p>
+                <button className = {classes.add} onClick={handleAddSteps}>+</button>
                 </div>
                 {stepsArray.map((item, index)=>{
 
                     return(
 
-                        <Textarea className={classes["dynamic-field"]} onChange = {(e)=>setSteps(current => [...current, e.target.value])}></Textarea>
+                        <textarea className={classes["dynamic-field"]} onChange = {(e)=>setSteps(current => [...current, e.target.value])}></textarea>
                     )
                 })
                 }
                 </div>
-            <Textarea size={"xl"} onChange = {(e)=>setNotes(e.target.value)} label={"Any additional notes?"}></Textarea>
+            <textarea  onChange = {(e)=>setNotes(e.target.value)}></textarea>
             <div className={classes.buttons}>
-                <Button onClick={handleSubmit}>Share Recipe</Button>
+                <button onClick={handleSubmit}>Share Recipe</button>
             </div>
-        </Container>
+        </div>
     )
 
 
@@ -176,14 +178,47 @@ function MainArea(){
 
 
 
-export default function Compose() {
+export default  function Compose({
+    Component,
+    pageProps,
+  }: AppProps<{
+    session: Session;
+  }>){
+
+    const session = useSession()
+    const router = useRouter()
+
+    function goHome(){
+
+        router.push("../")
+
+    }
+    console.log(session)
+
+    if(session){
+
+        return(
+            <SessionProvider>
+            <Header/>
+            <div className={classes.container}>
+                <MainArea/>
+            </div>
+            </SessionProvider>
+        )
+
+    }
 
     return(
-        <>
-        <Header/>
-        <div className={classes.container}>
-            <MainArea/>
+
+        <div className={classes.unauthorized}>
+            <h2 >You need to be signed in to CookMate to create a new recipe.</h2>
+            <div  className={classes.links}>
+                <button onClick={(e)=> {goHome()}}>Go Back</button>
+
+            </div>
         </div>
-        </>
+
     )
+
+    
 }

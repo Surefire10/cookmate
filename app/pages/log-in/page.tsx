@@ -1,11 +1,11 @@
 "use client"
 
-import { Title, Box, Text } from "@mantine/core"
 import { Field,Form,Formik  } from "formik"
 import Link from 'next/link';
 import {FormControl,Input,FormErrorMessage, Button, Container} from "@chakra-ui/react"
 import classes from "./login.module.css"
 import * as Yup from "yup"
+import { useRouter } from "next/navigation";
 
 
 const style = {
@@ -29,6 +29,41 @@ const validationSchema = Yup.object({
 })
 
 function LogInForm(){
+
+  const router = useRouter()
+
+    const submitUser = async (values: any) =>{
+      const body = {values}
+
+      try{
+
+        const response = await fetch("/api/auth/log-in",{
+
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body:JSON.stringify(body)
+    
+        })
+        if(response.status !== 200){
+
+          console.log("user not registered")
+          return(body)
+        }else{
+
+          console.log("user registered")
+          router.push("../")
+
+
+        }
+
+
+      }catch(error){
+
+        console.log("user not registered")
+
+
+      }
+    }
 
   return (
   <Container>
@@ -59,7 +94,7 @@ function LogInForm(){
           {({ field, form }:any) => (
             <FormControl isInvalid={form.errors.password && form.touched.password}>
               <Input style={form.errors.password && form.touched.password? styleError: style} 
-              {...field} placeholder='Password' />
+              {...field} placeholder='Password' type="password" />
               <FormErrorMessage>{form.errors.password}</FormErrorMessage>
             </FormControl>
             
@@ -73,6 +108,8 @@ function LogInForm(){
             colorScheme='teal'
             isLoading={props.isSubmitting}
             type='submit'
+            onClick={(userValues)=>{submitUser(userValues)}}
+
           >
             Submit
         </Button>
@@ -98,25 +135,24 @@ export default function LogInPage() {
 
   return(
 
-  <>
-  <Box className = {classes.box} component='div'>
+  
+  <div className = {classes.box}>
     <div className={classes["title-box"]}>
-      <Title ta = "center"  order={1}>Welcome to  
+      <h1>Welcome to  
       <span className = {classes.highlight}>
          CookMate!
-        </span></Title>
-      <Text ta = "center" size = "xl">Share your love for cooking, discover new recipes and more!</Text>
-      <Text ta = "center" size = "xl">Don&apos;t have an account? <span className={classes["span-highlight"]}>
-        <Link href="/pages/sign-up">Sign up here!</Link> </span></Text>
+        </span></h1>
+      <p>Share your love for cooking, discover new recipes and more!</p>
+      <p>Don&apos;t have an account? <span className={classes["span-highlight"]}>
+        <Link href="/pages/sign-up">Sign up here!</Link> </span></p>
     </div>
     <div className={classes["log-in-box"]}>
-      <Title ta = "center" order={1}>Log back in now!</Title>
+      <h1>Log back in now!</h1>
       <div className={classes["log-in-form"]}>
         <LogInForm/>
       </div>
     </div>
-  </Box>
-  </>
+  </div>
   
   )
 }
