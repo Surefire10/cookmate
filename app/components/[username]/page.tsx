@@ -2,6 +2,7 @@
 import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { Header, Stars } from "../../page"
+import Image  from "next/image"
 import ReactLoading from 'react-loading';
 
 
@@ -57,7 +58,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
     
     getData() 
     
-     },[])
+     })
     
     if(userRecipes){
 
@@ -65,11 +66,11 @@ function RecipeBox({currentUser}: {currentUser:string}){
 
             <div className="flex flex-col items-center justify-center bg-slate-200 ">
 
-                {userRecipes.map((recipe, index)=>{
+                {userRecipes.map((recipe)=>{
 
                     return(
 
-                        <div className="flex flex-col p-5 text-black w-11/12 gap-10 bg-slate-50 sm:w-4/5 ">
+                        <div className="flex flex-col p-5 text-black w-11/12 gap-10 bg-slate-50 sm:w-4/5 " key={recipe.id}>
                             <div className="flex flex-row mt-4 items-center justify-between text-2xl md:text-3xl md:w-11/12">
                                 <div>
                                     <h2 className="font-bold">{recipe.name}</h2>
@@ -82,7 +83,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
                             </div>
                             <div className="flex flex-col justify-between gap-3  items-center">
                                 <div className="m-2 w-3/5 md:w-3/6 lg:w-2/6">
-                                    <img src={recipe.picture}/>
+                                    <Image src={recipe.picture} alt={recipe.name}/>
                                 </div>
                                 <div className="mt-5 font-semibold md:w-11/12">
                                     <p>{recipe.heading}</p>
@@ -93,10 +94,10 @@ function RecipeBox({currentUser}: {currentUser:string}){
                                 <div>
                                     <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Ingredients:</h3>
                                     <ul className="font-medium">
-                                    {recipe.ingredients.map((ingredient)=>{
+                                    {recipe.ingredients.map((ingredient,index)=>{
                                     
                                     return(
-                                        <li className="mt-3 ml-2">{ingredient}</li>
+                                        <li className="mt-3 ml-2" key = {index}>{ingredient}</li>
                                     )
                                     })}
                                     </ul>
@@ -105,16 +106,16 @@ function RecipeBox({currentUser}: {currentUser:string}){
                             <div className="md: ml-5">
                                 <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Directions:</h3>
                                 <ul className="font-medium">
-                                {recipe.directions.map((directions)=>{
+                                {recipe.directions.map((directions, index)=>{
                                 
                                 return(
-                                    <li className="mt-3 ml-2">{directions}</li>
+                                    <li className="mt-3 ml-2" key = {index}>{directions}</li>
                                 )
                                 })}
                                 </ul>
                             </div>
                             <div>
-                                <h2 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Chef's Notes:</h2>
+                                <h2 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Chef&apos;s Notes:</h2>
                                 <p className="font-medium text-lg">{recipe.additional}</p>
                             </div>
                             <div className="flex justify-center">

@@ -25,14 +25,15 @@ const errorMessage={
 
 function MainArea(){
 
+
     const starterArraySteps = [
 
-        <Field></Field>
+        <Field key = {0}></Field>
     ]
 
     const starterArrayingredients = [
 
-        <Field></Field>
+        <Field key = {0}></Field>
     ]
 
     
@@ -53,14 +54,15 @@ function MainArea(){
 
     const router = useRouter()
     const handleAddIngredients= () =>{
-
+        let counter = 1
         setNumberOfIngredients(existing =>{
 
             return [
-                ...existing,<Field as= "text"></Field>
+                ...existing,<Field as= "text" key= {counter}></Field>
 
             ]
         })
+        counter++
 
     }
     const handleSubtractIngredients = (index :number) =>{
@@ -75,14 +77,16 @@ function MainArea(){
     }
 
     const handleAddSteps = () =>{
+        let counter = 1
 
         setNumberOfSteps(existing =>{
 
             return [
-                ...existing,<Field></Field>
+                ...existing,<Field key = {counter}></Field>
             ]
         })
 
+        counter++
     }
 
     const handleSubtractSteps = (index :number) =>{
@@ -271,6 +275,7 @@ function MainArea(){
                                              <div className='flex flex-row gap-2 items-center justify-center'>
                                                 <input  className="p-2 m-2"  
                                                 onBlur = {(e)=>{handleIngredientsChange(index,e)}}
+                                                key = {index}
                                                 />
                                                 <Button className={`p-5 w-5 h-5 bg-white rounded text-xl 
                                                 hover: cursor-pointer 
@@ -303,6 +308,7 @@ function MainArea(){
                                              <div className='flex flex-row gap-2 items-center'>
                                                 <input  className="p-2 m-2" 
                                                 onBlur = {(e)=>{handleStepsChange(index,e)}}
+                                                key = {index}
                                                 />
                                                 <Button className={`p-5 bg-white rounded text-xl w-5 h-5
                                                 hover: cursor-pointer 
@@ -317,7 +323,7 @@ function MainArea(){
                                       
                                     </div>
                                     <div className='flex flex-col  mt-5 justify-evenly sm:justify-normal'>
-                                    <p className=' font-medium text-lg mb-2 mt-2 sm:text-xl'>Chef's notes:
+                                    <p className=' font-medium text-lg mb-2 mt-2 sm:text-xl'>Chef&apos;s notes:
                                         </p>
                                         <Field name = "notes" as = "textarea"></Field>
                                         {errors.notes && touched.notes ? (

@@ -3,6 +3,7 @@ import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { Header, Stars } from "../../../page"
 import ReactLoading from 'react-loading';
+import Image from "next/image";
 
 
 function ReviewBox({recipe}: {recipe: Recipes}){
@@ -54,7 +55,7 @@ function RecipeBox({recipeId}: {recipeId: number}){
     
     getData() 
     
-     },[])
+     })
     
     if(recipe){
 
@@ -72,7 +73,7 @@ function RecipeBox({recipeId}: {recipeId: number}){
             </div>
             <div className="flex flex-col justify-between gap-3 items-center ">
                 <div className="m-2">
-                    <img src={recipe.picture}/>
+                    <Image src={recipe.picture} alt ={recipe.name}/>
                 </div>
                 <div className="mt-5 font-semibold md:w-11/12">
                     <p>{recipe.heading}</p>
@@ -83,10 +84,10 @@ function RecipeBox({recipeId}: {recipeId: number}){
                 <div >
                     <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Ingredients:</h3>
                     <ul className="font-medium">
-                    {recipe.ingredients.map((ingredient)=>{
+                    {recipe.ingredients.map((ingredient, index)=>{
                     
                     return(
-                        <li className="mt-3 ml-2">{ingredient}</li>
+                        <li className="mt-3 ml-2" key={index}>{ingredient}</li>
                     )
                     })}
                     </ul>
@@ -95,16 +96,16 @@ function RecipeBox({recipeId}: {recipeId: number}){
             <div className="md: ml-5">
                 <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Directions:</h3>
                 <ul className="font-medium">
-                {recipe.directions.map((directions)=>{
+                {recipe.directions.map((directions, index)=>{
                 
                 return(
-                    <li className="mt-3 ml-2">{directions}</li>
+                    <li className="mt-3 ml-2" key={index}>{directions}</li>
                 )
                 })}
                 </ul>
             </div>
             <div>
-                <h2 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Chef's Notes:</h2>
+                <h2 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Chef&apos;s Notes:</h2>
                 <p className="font-medium text-lg">{recipe.additional}</p>
             </div>
             <div className="flex justify-center">

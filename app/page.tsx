@@ -8,6 +8,7 @@ import Link from 'next/link';
 import './globals.css'
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'inspector';
+import Image from 'next/image';
 
 
 
@@ -57,9 +58,10 @@ function SearchBar(){
                             !== searchTerm
                             
                         }).
-                        map((item) =>{
+                        map((item,index) =>{
                             return(
-                                <li className={`text-black hover:cursor-pointer
+                                <li key={index}
+                                className={`text-black hover:cursor-pointer
                                  hover:bg-gray-200 w-full`}
                                 onClick={()=>{setSearchQuery(item)}}
                                 >
@@ -489,7 +491,7 @@ function Stars({number, id, isChangeable} :{number: number , id:number , isChang
                                 <div className='cursor-pointer w-5/6 overflow-hidden mt-0 mb-0 ml-auto mr-auto'
                                 onClick={()=>{router.push("/components/recipe/" + item.id)}}
                                 >
-                                    <img className= "object-cover max-w-md max-h-md "src={item.picture!}></img>
+                                    <Image className= "object-cover max-w-md max-h-md "src={item.picture!} alt={item.name}/>
                                   
                                     <h2 className='font-bold cursor-pointer hover:underline hover:decoration-yellow-500 hover:decoration-2 hover:underline-offset-8'>
                                         {item.name}
