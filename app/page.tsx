@@ -8,7 +8,7 @@ import Link from 'next/link';
 import './globals.css'
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'inspector';
-import Image from 'next/image';
+import img from 'next/image';
 
 
 
@@ -25,15 +25,18 @@ function SearchBar(){
 
     const onSearch = (event: any) =>{
 
-        if(event.key === "Enter" || event){
+        console.log(event.key)
+
+        if(event.key === "Enter"){
             const encodedSearchQuery = encodeURI(searchQuery)
             router.push("/components/search?q="+encodedSearchQuery)
         }
         
     }   
+
     return(
         
-        <>  
+         
             <div className={`relative flex row items-center justify-center bg-white w-45`}>
                 <input className='focus:ring-transparent text-black text-sm p-0.5 w-full'
                     placeholder="Search Recipes"
@@ -41,12 +44,14 @@ function SearchBar(){
                     onKeyUp={(e)=>{onSearch(e)}}
                     value={searchQuery}
                     onFocus={()=> setFocued(true)}
-                    onBlur={()=> setFocued(true)}>
+                    onBlur={()=> setFocued(false)}>
                 </input>
-                <div className='p-1 hover:shadow cursor-pointer' onClick={(e)=>{onSearch(e)}} >
+                <div className='p-1 hover:shadow cursor-pointer' 
+                    onClick={(e)=>{onSearch(e)}} >
                     <Search className='stroke-yellow-500'/>
                  </div>
                  {isFocused? 
+
                 <div className={`absolute top-8 left-0 w-full bg-slate-100`}>
                     <ul>
                         {searchTerms.filter(item =>{
@@ -63,9 +68,9 @@ function SearchBar(){
                                 <li key={index}
                                 className={`text-black hover:cursor-pointer
                                  hover:bg-gray-200 w-full`}
-                                onClick={()=>{setSearchQuery(item)}}
+                                onClick={(e)=>{setSearchQuery(item)}}
                                 >
-                                {item}
+                                    {item}
                                 </li>
                             )
                         })
@@ -75,7 +80,7 @@ function SearchBar(){
                 </div>
                 : <></>}
              </div>
-        </>
+        
     )
 }
 
@@ -100,19 +105,7 @@ function Header(){
         
     }
 
-    const mouseEnterHandler = (e:React.MouseEvent<Element, MouseEvent>) =>{
-
-        if(session){
-            setHover(false)
-
-        }else{
-            setHover(true)
-
-
-        }
-        
-
-    }
+  
 
   
     return(
@@ -490,8 +483,10 @@ function Stars({number, id, isChangeable} :{number: number , id:number , isChang
                             <div className="text-2xl text-black ">
                                 <div className='cursor-pointer w-5/6 overflow-hidden mt-0 mb-0 ml-auto mr-auto'
                                 onClick={()=>{router.push("/components/recipe/" + item.id)}}
-                                >
-                                    <Image className= "object-cover max-w-md max-h-md "src={item.picture!} alt={item.name}/>
+                                >   
+                                <div className='max-w-md max-h-md'>
+                                    <img className= "object-cover"  src={item.picture!} alt={item.name}/>
+                                </div>
                                   
                                     <h2 className='font-bold cursor-pointer hover:underline hover:decoration-yellow-500 hover:decoration-2 hover:underline-offset-8'>
                                         {item.name}

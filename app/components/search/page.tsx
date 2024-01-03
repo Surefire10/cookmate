@@ -2,146 +2,19 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import classes from './search.module.css';
-import { Home, User, BookOpen, AlertTriangle } from "react-feather";
+import { AlertTriangle, ChevronUp } from "react-feather";
 import { Recipes } from "@prisma/client";
+import {Header, Stars} from "../../page"
 import Link from 'next/link';
 
-const links = [
-
-    {link:"../pages/home", label: "Home" ,icon: <Home className={classes.icon}/>},
-    {link:"../pages/user", label: "My Profile",icon: <User className={classes.icon}/>},
-    {link:"../pages/compose", label: "New Recipe",icon: <BookOpen className={classes.icon}/>},
-
-]
-function Header(){
-
-
-    const [searchQuery, setSearchQuery] = useState("")
-    const router = useRouter()
-
-
-    const onSearch = (event: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent) =>{
-        const {key} = event as React.KeyboardEvent<HTMLDivElement>
-
-
-        if(key === "Enter"){
-        const encodedSearchQuery = encodeURI(searchQuery)
-        console.log(encodedSearchQuery)
-
-        router.push("/pages/search?q="+encodedSearchQuery)
-
-        }
-      
-    }   
-
-    return(
-
-        <header className={classes.header}>
-            <div className={classes.title}>
-            <h1><Link href ="/">CookMate</Link></h1>
-            </div>
-            <div className={classes.search}>
-                    <div
-                        placeholder="Search Recipes Now!"
-                        onKeyUp={(e)=>{onSearch(e)}}>
-                    
-                    </div>
-                </div>   
-        </header>
-
-    )
-}
-
-function Navbar(){
-
-    const[active , setActive] = useState("Home")
-    const items = links.map((item) =>{
-
-        return( 
-            <div className={classes["nav-link"]} >
-                <a 
-                href={item.link}
-                key={item.label}
-                data-active={item.label === active || undefined}
-                onClick={(event) =>{
-                    setActive(item.label)
-                }}
-                >
-                {item.icon} {item.label}
-                </a>
-            </div>
-           )
-    })
-    
-
-return(
-
-    <nav className={classes.navbar}>
-        <div className={classes.main}>
-            {items}
-        </div>
-        <div className={classes.footer}>
-            <div>
-                Log out
-            </div>
-            <div>
-                Create an Account
-            </div>
-        </div>
-    </nav>
-
-)
-
-
-}
-
-
-function Stars({number, id}: {number: number, id:number}){
-    
-    const [rating, setRating] = useState(number)
-    const handleRating = async (rating:number) =>{
-        
-        setRating(rating)
-        const body = {
-            id: id,
-            rating : rating
-        }
-
-        const response = await fetch("/api/recipe-controller",{
-
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body:JSON.stringify(body),
-
-        })
-
-        if(response.status !== 200){
-
-            console.log("yo idk")
-        }else{
-            console.log("rating updated")
-
-        }
-
-        
-    }
-   
-    return(
-
-        <div>stars</div>
-    )
-   
-
-
-
-}
 
  function MainArea(){
 
     const[recipes, setRecipes] = useState<Recipes[]>([])
     const [isLoading, setLoading] = useState(true)
+    const [isConnected, setConnected] = useState(true)
     const searchParams = useSearchParams()
+    const router = useRouter()
     const searchQuery = searchParams.get("q")
     console.log(searchQuery)
 
@@ -155,9 +28,19 @@ function Stars({number, id}: {number: number, id:number}){
                 const response = await fetch(url)
                 
                 let data = await response.json() as Recipes[]
-                setLoading(false)
-                console.log(data)
+
+                setTimeout(()=>{
+
+                    setLoading(false)
+
+
+                },500)
+
                 setRecipes(data)
+
+    
+                
+                console.log(data)
             }catch(error){
 
                 console.log(error)
@@ -168,89 +51,83 @@ function Stars({number, id}: {number: number, id:number}){
         getData()
         
     },[searchQuery])
-    return(
-        <div  className={classes["main-area"]}>
-        <div>
-            {isLoading?       
-            <div className = {classes.loader}>
-            <ReactLoading 
-            type='balls' ></ReactLoading>
-            </div>  
-            : recipes.length !== 0? recipes.map((item)=>{
-                
-                return(
-                    <div className={classes["recipe-container"]}>
-                        <div className={classes["recipe-title"]}>
-                            <h2>{item.name}</h2>
-                            <div className={classes["recipe-rating"]}>
-                                <Stars id = {item.id} number = {item.rating}></Stars>
-                            </div>
+    
+        if(isLoading){
+            return(
+
+                <div className ="flex flex-row justify-center h-screen align-middle items-center ">
+                    <ReactLoading className='fill-black' 
+                    type='bubbles' color= "black" width={100}></ReactLoading>
+                </div> 
+
+            )
+
+        }else{
+            return(
+
+        <div className ="flex flex-col items-center gap-2 w-10/12 bg-slate-50 m-10 h-full">
+            <div className='flex flex-col p-3 m-5 text-black shadow gap-3 w-full '>
+                <h1 className='text-lg font-semibold'>Search Results For { searchQuery?.toLowerCase()}</h1>
+            </div>
+
+            {!isLoading?            
+                recipes.map((item)=>{
+                    return(
+                        <div className=" flex flex-col mb-10  w-10/12 justify-between text-black " key={item.id}>
+                            <div className="text-2xl text-black">
+                                <div className='flex flex-row w-full  rounded gap-3 cursor-pointer p-2 hover:bg-slate-100'
+                                onClick={()=>{router.push("/components/recipe/" + item.id)}}>   
+                                    <div className='max-w-44 max-h-md rounded'>
+                                        <img className= "object-cover"  src={item.picture!} alt={item.name}/>
+                                    </div>
+                                  
+                                    <div className=' flex flex-col gap-3'>
+                                        <h2 className='font-bold cursor-pointer hover:underline hover:decoration-yellow-500 hover:decoration-2 hover:underline-offset-8 mt-3'>
+                                            {item.name}
+                                        </h2>
+                                        <div className='flex flex-row mt-2 text-yellow-500'>
+                                            <Stars id = {item.id} number = {item.rating} isChangeable = {false}></Stars>
+                                            <h2 className="text-sm text-black">({item.rating})</h2>
+
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div> 
                         </div>
-                        <div className={classes["recipe-heading"]}>
-                            <p>{item.heading}</p>
-                        </div>
-                        <div className={classes["recipe-ingredients"]}>
-                             <h3>Ingredients:</h3>
-                             <ul>
-                             {item.ingredients.map((ingredient)=>{
-                                
-                                return(
-                                    <li>{ingredient}</li>
-                                )
-                             })}
-                            </ul>
-
-                        </div>
-
-                        <div className={classes["recipe-directions"]}>
-                             <h3>Directions:</h3>
-                             <ul>
-                             {item.directions.map((directions)=>{
-                                
-                                return(
-                                    <li>{directions}</li>
-                                )
-                             })}
-                            </ul>
-
-                        </div>
-
-                        <div className={classes["recipe-additional"]}>
-                            <p>{item.additional}</p>
-                        </div>
-
-                        
-                    </div>
-
-
-
-                )
-
-            }) : <div className={classes.empty}>
-                    <AlertTriangle></AlertTriangle>
-                  <p>No Recipes Match This Search Currently. Try Another Search</p>  
-                </div>}
+                    )
+                }) : <>
+                    <ReactLoading className='fill-black' 
+                    type='bubbles' color= "black" width={100}></ReactLoading>                </>}
             
-        
         </div>
-    </div>
+
+    
     )
 
 
-}
+    }
 
-
+ }
 
 
 export default function HomePage() {
 
+    const handlClick = ()=>{
+
+        window.scrollTo(0,0)
+    }
+
     return(
-        <>
-        <Header/>
-        <div className={classes.container}>
-            <Navbar/>
-            <MainArea/>
+        <div className="flex flex-col bg-slate-200 h-screen">
+            <Header/>
+            <div className='flex flex-col items-center justify-center  bg-slate-200'>
+                <MainArea/>
+                <div onClick={handlClick} 
+                className='fixed bg-yellow-500 bottom-0 right-0 rounded m-2 p-3 cursor-pointer'>
+                   <ChevronUp/>
+                </div>
+            </div>
         </div>
-        </>
     )
 }

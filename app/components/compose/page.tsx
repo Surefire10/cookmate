@@ -272,10 +272,10 @@ function MainArea(){
                                         <div className='flex flex-col'>
                                         {ingredientArray.map((item,index) =>{
                                             return(
-                                             <div className='flex flex-row gap-2 items-center justify-center'>
+                                             <div className='flex flex-row gap-2 items-center justify-center' key = {index}>
                                                 <input  className="p-2 m-2"  
                                                 onBlur = {(e)=>{handleIngredientsChange(index,e)}}
-                                                key = {index}
+                                                
                                                 />
                                                 <Button className={`p-5 w-5 h-5 bg-white rounded text-xl 
                                                 hover: cursor-pointer 
@@ -305,10 +305,10 @@ function MainArea(){
                                         <div className='flex flex-col'>
                                         {stepsArray.map((item,index) =>{
                                             return(
-                                             <div className='flex flex-row gap-2 items-center'>
+                                             <div className='flex flex-row gap-2 items-center'key = {index}>
                                                 <input  className="p-2 m-2" 
                                                 onBlur = {(e)=>{handleStepsChange(index,e)}}
-                                                key = {index}
+                                                
                                                 />
                                                 <Button className={`p-5 bg-white rounded text-xl w-5 h-5
                                                 hover: cursor-pointer 

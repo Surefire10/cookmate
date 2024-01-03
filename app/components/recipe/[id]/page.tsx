@@ -3,7 +3,7 @@ import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { Header, Stars } from "../../../page"
 import ReactLoading from 'react-loading';
-import Image from "next/image";
+import img from "next/image";
 
 
 function ReviewBox({recipe}: {recipe: Recipes}){
@@ -73,7 +73,7 @@ function RecipeBox({recipeId}: {recipeId: number}){
             </div>
             <div className="flex flex-col justify-between gap-3 items-center ">
                 <div className="m-2">
-                    <Image src={recipe.picture} alt ={recipe.name}/>
+                    <img src={recipe.picture} alt ={recipe.name}/>
                 </div>
                 <div className="mt-5 font-semibold md:w-11/12">
                     <p>{recipe.heading}</p>

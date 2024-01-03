@@ -2,7 +2,7 @@
 import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { Header, Stars } from "../../page"
-import Image  from "next/image"
+import img  from "next/image"
 import ReactLoading from 'react-loading';
 
 
@@ -83,7 +83,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
                             </div>
                             <div className="flex flex-col justify-between gap-3  items-center">
                                 <div className="m-2 w-3/5 md:w-3/6 lg:w-2/6">
-                                    <Image src={recipe.picture} alt={recipe.name}/>
+                                    <img src={recipe.picture} alt={recipe.name}/>
                                 </div>
                                 <div className="mt-5 font-semibold md:w-11/12">
                                     <p>{recipe.heading}</p>
