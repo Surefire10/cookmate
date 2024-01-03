@@ -57,7 +57,10 @@ const validationSchema = Yup.object({
 function LogInForm(){
 
   const router = useRouter()
-  const submitUser = async (values:any, onSubmitProps:any)=>{
+  const submitUser = async (values:{
+    username: string;
+    password: string;
+}, onSubmitProps:any)=>{
     try{
     const response = await signIn("credentials",{
       redirect: false,
@@ -91,7 +94,7 @@ function LogInForm(){
           validationSchema={validationSchema}
           onSubmit={(userValues,onSubmitProps) => submitUser(userValues,onSubmitProps)}
           >
-            {(props: any)  => (
+            {(props)  => (
 
               <Form className="flex flex-col gap-3 items-center ">
                 <Field name='username' >

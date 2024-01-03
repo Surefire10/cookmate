@@ -74,7 +74,12 @@ function SignUpForm(){
 
   const router = useRouter()
 
-    const submitUser = async (values: any) =>{
+    const submitUser = async (values :{
+      username: string;
+      email: string;
+      password: string;
+      confirmPassword: string;
+  }) =>{
 
       
       try{

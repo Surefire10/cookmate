@@ -100,7 +100,6 @@ function Header(){
 
     const mouseEnterHandler = (e:React.MouseEvent<Element, MouseEvent>) =>{
 
-      console.log(e)
         if(session){
             setHover(false)
 
@@ -112,7 +111,6 @@ function Header(){
         
 
     }
-    console.log(hover)
 
   
     return(

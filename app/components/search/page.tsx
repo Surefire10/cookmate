@@ -21,9 +21,11 @@ function Header(){
     const router = useRouter()
 
 
-    const onSearch = (event: any) =>{
+    const onSearch = (event: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent) =>{
+        const {key} = event as React.KeyboardEvent<HTMLDivElement>
 
-        if(event.key === "Enter"){
+
+        if(key === "Enter"){
         const encodedSearchQuery = encodeURI(searchQuery)
         console.log(encodedSearchQuery)
 
@@ -95,7 +97,7 @@ return(
 }
 
 
-function Stars({number, id}: any){
+function Stars({number, id}: {number: number, id:number}){
     
     const [rating, setRating] = useState(number)
     const handleRating = async (rating:number) =>{

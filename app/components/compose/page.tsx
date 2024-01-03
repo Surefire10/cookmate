@@ -98,7 +98,7 @@ function MainArea(){
         }
     }
 
-    const handleIngredientsChange = (index :number, e:any) =>{
+    const handleIngredientsChange = (index :number, e:React.ChangeEvent<HTMLInputElement>) =>{
 
         setIngredients(current => {return{
             //the square brackets is to indicte that index is a variable
@@ -109,7 +109,7 @@ function MainArea(){
         
     }
 
-    const handleStepsChange = (index :number, e:any) =>{
+    const handleStepsChange = (index :number, e:React.ChangeEvent<HTMLInputElement>) =>{
 
         setSteps(current => {return{
             ...current,
