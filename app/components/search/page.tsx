@@ -37,7 +37,7 @@ function Header(){
 
         <header className={classes.header}>
             <div className={classes.title}>
-            <h1><Link href ="../">CookMate</Link></h1>
+            <h1><Link href ="/">CookMate</Link></h1>
             </div>
             <div className={classes.search}>
                     <div

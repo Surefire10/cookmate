@@ -1,34 +1,30 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
- 
+
 model Users {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  username     String @unique
-  password String
+  username  String   @unique
   createdAt DateTime @default(now())
+  password  String
 }
 
 model Recipes {
-  id        Int      @id @default(autoincrement())
-  name      String
-  published_by     String
-  heading          String   
-  ingredients     String[]
-  directions     String[]
-  additional String
-  rating      Int 
-  createdAt DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  name         String
+  published_by String
+  heading      String
+  ingredients  String[]
+  directions   String[]
+  additional   String
+  rating       Int
+  createdAt    DateTime @default(now())
+  picture      String  @db.VarChar(512)
 }
-
-
-

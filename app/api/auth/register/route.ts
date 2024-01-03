@@ -1,21 +1,23 @@
 import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcrypt"
+import { APIResponse } from "../../../lib/types"
+import { ErrorMessage } from "formik"
+import { NextRequest, NextResponse } from "next/server"
+
 
 const prisma = new PrismaClient()
 
-export async function POST(req : Request){
-
-
+export async function POST(req : Request, res: Response ){
+    
     const body = await req.json()
 
     const isUserThere = await prisma.users.findUnique({
         where:{
-
             username: body.username
         }
     })
 
-        if(!isUserThere){
+    if(!isUserThere){
 
         try{
 
@@ -24,21 +26,23 @@ export async function POST(req : Request){
 
                 data:{
 
-                    username:  body.username,  
-                    email:  body.email,    
+                    username:  body.username.toLowerCase().trim(),  
+                    email:  body.email.toLowerCase().trim(),    
                     password: hashedPassword
                     
                 },
 
             })
 
-            return Response.json(newUser, {status: 200})
+            return NextResponse.json({newUser}, {status:200})
 
 
         }catch(error){
-            console.log(error)
-            return Response.json({message: "Error adding a user", status: 500, error: error})
+            return new NextResponse("Error", {status:400})
         }
 
+    }else{
+
+        return NextResponse.json({message:"User already exists"}, {status:400})
     }
-}9
+}

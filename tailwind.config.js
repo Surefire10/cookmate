@@ -1,12 +1,7 @@
-import type { Config } from 'tailwindcss'
-import { colors as defaultColors } from 'tailwindcss/defaultTheme'
-import { withUt } from "uploadthing/tw";
+/** @type {import('tailwindcss').Config} */
+const { withUt } = require("uploadthing/tw");
 
-
-
-
-
-export default withUt({
+module.exports = withUt({
 
   content: [
     './app/*.{ts,tsx,mdx}',
@@ -32,4 +27,3 @@ export default withUt({
     plugins: [],
 
 })
-  
