@@ -1,7 +1,7 @@
 "use client"
 import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
-import { Header, Stars } from "../../page"
+import {Header, Stars} from "../subcomponents/components"
 import img  from "next/image"
 import ReactLoading from 'react-loading';
 

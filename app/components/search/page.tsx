@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AlertTriangle, ChevronUp } from "react-feather";
 import { Recipes } from "@prisma/client";
-import {Header, Stars} from "../../page"
-import Link from 'next/link';
+import {Header, Stars} from "../subcomponents/components"
 
 
  function MainArea(){

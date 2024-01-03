@@ -4,14 +4,12 @@ import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {Field, Formik, Form} from "formik"
-import { AppProps } from "next/app";
-import { Session } from 'next-auth';
-import { Header } from '../../page';
+
+import {Header} from "../subcomponents/components"
 import * as Yup from "yup"
 import { Button } from '@chakra-ui/react';
 import { UploadButton } from '../../utils/uploadthing';
 import { UploadFileResponse } from 'uploadthing/client';
-import Link from 'next/link';
 
 const errorMessage={
 
