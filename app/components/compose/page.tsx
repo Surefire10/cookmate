@@ -356,12 +356,7 @@ function MainArea(){
 
 
 
-export default  function Compose({
-    Component,
-    pageProps,
-  }: AppProps<{
-    session: Session;
-  }>){
+export default function Compose(){
 
     const session = useSession()
     const router = useRouter()
