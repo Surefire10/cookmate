@@ -86,7 +86,7 @@ function SearchBar(){
 
 
 
-function Header(){
+export function Header(){
 
     const router = useRouter()
     const {data: session} = useSession()
@@ -211,7 +211,7 @@ function Header(){
     )
 }
 
-function Navbar(){
+ function Navbar(){
 
     const session = useSession()
     const currentUser = session.data?.user
@@ -338,7 +338,7 @@ function Navbar(){
 
 
 
-function Stars({number, id, isChangeable} :{number: number , id:number , isChangeable:boolean}){
+export function Stars({number, id, isChangeable} :{number: number , id:number , isChangeable:boolean}){
     
     
     const starArray = [1,2,3,4,5]
@@ -545,4 +545,3 @@ export default function HomePage(){
 }
 
 
-export {Header, Navbar, Stars}
