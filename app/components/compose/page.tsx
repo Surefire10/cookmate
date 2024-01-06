@@ -393,7 +393,7 @@ export default function Compose(){
 
     return(
 
-        <div className=" bg-slate-200 ">
+        <div className=" bg-slate-200 overflow-scroll ">
             <Header/>
             <div className=' flex flex-row items-center justify-center'>
                 <div className='flex flex-col gap-10 justify-between items-center p-10 rounded-xl  mt-40 bg-slate-50 '>
