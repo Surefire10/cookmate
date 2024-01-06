@@ -3,8 +3,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Link from "next/link"
 
-import { BookOpen, ChevronDown, ChevronUp, Edit2, Home, LogIn, LogOut, Menu, Search, Star, User, X } from "react-feather"
-import { eventNames } from "process"
+import { ChevronDown, ChevronUp, Edit2, LogIn, LogOut, Menu, Search, Star, User, X } from "react-feather"
 
 function SearchBar(){
 
@@ -90,7 +89,6 @@ function SearchBar(){
 
 export function Header(){
 
-    const router = useRouter()
     const {data: session} = useSession()
     const [dropDown, setDrop] = useState(false)
     const [hover, setHover] = useState(false)
@@ -103,7 +101,7 @@ export function Header(){
 
     const signOutHandler = () =>{
 
-        signOut({callbackUrl:""})
+        signOut({callbackUrl:"/"})
         
     }
 
@@ -217,7 +215,6 @@ export function Header(){
 
     const session = useSession()
     const currentUser = session.data?.user
-    const [hover ,setHover] = useState(false)
     const[active , setActive] = useState("Home")
     const[open, setOpen] = useState(false)
 
@@ -332,11 +329,13 @@ export function Header(){
 
 function Footer(){
 
+    const router = useRouter()
 
     return(
 
-        <div className='flex flex-col  w-full  text-black font-semibold text-xlborder-t-black '>
-            <div className='flex flex-row items-center justify-center m-5 bg-yellow-500 p-3 w-40 rounded text-white text-center '>
+        <div className='flex cursor-pointer flex-col items-center w-full text-black font-semibold text-xl '>
+            <div onClick={()=>{router.push("/")}}
+            className='flex flex-row items-center justify-center mt-10 mb-5 bg-yellow-500 p-3 w-40  md:w-60 md:text-4xl rounded text-white text-center '>
                     Cookmate
             </div>
             <div className='flex flex-row text-lg font-normal gap-5 text-center  p-2 justify-center'>
