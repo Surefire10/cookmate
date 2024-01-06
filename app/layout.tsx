@@ -11,7 +11,7 @@ interface IProps{
 
 export default function RootLayout({ children, session }: IProps) {
   return (
-    <html lang="en" className="m-0 p-0 h-screen bg-slate-200  ">
+    <html lang="en" className="m-0 p-0 bg-slate-200  overflow-y-scroll ">
       <head>
       <title>Cookmate</title>
 

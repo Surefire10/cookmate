@@ -393,10 +393,10 @@ export default function Compose(){
 
     return(
 
-        <div className=" bg-slate-200 overflow-scroll ">
+        <div className=" bg-slate-200 ">
             <Header/>
-            <div className=' flex flex-row items-center justify-center'>
-                <div className='flex flex-col gap-10 justify-between items-center p-10 rounded-xl  mt-40 bg-slate-50 '>
+            <div className=' flex flex-row items-center justify-center  mt-10'>
+                <div className='flex flex-col gap-10 justify-between items-center p-10 rounded-xl m-5 bg-slate-50 '>
                     <h2 className='text-black text-xl sm:text-2xl text-center font-semibold'>You need to be signed in to create a new recipe.</h2>
 
                     <div className='flex flex-row justify-between w-full sm:w-10/12   m-2 p-3 text-sm font-semibold'>
