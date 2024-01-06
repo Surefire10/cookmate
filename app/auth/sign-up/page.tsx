@@ -212,17 +212,17 @@ export default function SignUpPage() {
 
   return(
 
-    <div className={` h-screen flex flex-col items-center justify-center bg-slate-200 text-black dark:bg-gray-500 
+    <div className={` h-screen flex flex-col items-center justify-center bg-slate-200 text-black 
           sm:flex sm:flex-row sm:justify-evenly`}>
       <div className={`m-5`}>
-        <div className={`text-3xl mb-2 sm:text-4xl dark:text-white`}>
+        <div className={`text-3xl mb-2 sm:text-4xl `}>
           <h1>New to {" "}
-            <span className = "text-yellow-500 ">
+            <span className = "text-yellow-500 font-semibold">
               CookMate?
             </span>
           </h1>
         </div>
-        <div className={`text-xl md:text-2xl font-semibold dark:text-white`}>  
+        <div className={`text-xl md:text-2xl font-semibold `}>  
           <p>Share your love for cooking, discover new recipes and more!</p>
         </div>
      </div>
@@ -230,7 +230,7 @@ export default function SignUpPage() {
         <div className="bg-yellow-500 rounded p-5 m-5">
           <SignUpForm/>
         </div>
-        <div className={`mt-4 md:text-xl dark:text-white`}>
+        <div className={`mt-4 md:text-xl `}>
                 <p>Already have an account? <span className=" hover:text-yellow-500">
                     <Link href="/auth/log-in"className="font-semibold">Log in now!</Link> </span>
                 </p>
