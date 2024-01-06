@@ -399,7 +399,7 @@ export default function Compose(){
                 <div className='flex flex-col gap-10 justify-between items-center p-10 rounded-xl  mt-40 bg-slate-50 '>
                     <h2 className='text-black text-xl sm:text-2xl text-center font-semibold'>You need to be signed in to create a new recipe.</h2>
 
-                    <div className='flex flex-row justify-between w-4/5 sm:w-4/6  md:w-4/6 lg:w-10/12 m-2 p-3 text-sm font-semibold'>
+                    <div className='flex flex-row justify-between w-full sm:w-10/12   m-2 p-3 text-sm font-semibold'>
 
                         <button id ="go back" className = "text-lg  bg-yellow-500 rounded p-1 hover:shadow-lg sm:p-2" 
                         onClick={(e)=>{handleClick(e)}}>Go Back</button>
