@@ -113,14 +113,12 @@ export function Header(){
         <header className={`bg-slate-200 flex flex-row 
         items-center justify-between p-3 z-10 shadow-lg`}>
             <div 
-            className={`relative flex flex-row w-fit gap-3 justify-between bg-slate-50 p-2 
+            className={`relative flex flex-row w-fit gap-3 justify-between bg-slate-50 p-1 
             rounded items-center cursor-pointer 
             hover:shadow-lg 
             sm:p-2`}
             onMouseEnter={(e)=>{setHover(true)}}
             onMouseLeave={()=>{setHover(false)}}
-
-        
 
             >
                 {/* drop down menu */}
@@ -142,17 +140,17 @@ export function Header(){
 
 
             <div className='flex flex-row items-center'>
-                <div className='rounded-full bg-yellow-500 p-2'>
+                <div className='rounded-full bg-yellow-500 p-1 sm:p-2'>
                     <User className='stroke-black'/> 
                 </div>
                 {session?
                 <div onClick={()=>{signOutHandler()}} 
-                className='hidden text-black text-baseline p-2 md:block font-medium'>
+                className='hidden text-black text-baseline p-1 md:block font-medium'>
                     <p>Log out</p>
                 </div> 
                 :
                 <div onClick={()=>{signInHandler()}} 
-                className='hidden text-black text-baseline p-2 md:block font-medium'>
+                className='hidden text-black text-baseline p-1 md:block font-medium'>
                     <p>Log in</p>
                 </div>}
                 

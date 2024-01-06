@@ -378,7 +378,7 @@ export default function Compose(){
     if(session.data?.user){
 
         return(
-            <div className='bg-slate-50 h-screen'>
+            <div className='bg-slate-50 '>
                 <Header/>
                 <div className="flex felx- justify-center bg-slate-50 ">
                     <MainArea/>
@@ -393,13 +393,13 @@ export default function Compose(){
 
     return(
 
-        <div className=" bg-slate-200 h-screen ">
+        <div className=" bg-slate-200 ">
             <Header/>
-            <div>
-                <div className='flex flex-col gap-10 justify-between items-center align-baseline p-5  mt-40 '>
-                    <h2 className='text-black text-xl sm:text-2xl '>You need to be signed in to <span className='bg-yellow-500 p-1 text-white rounded' >CookMate</span> to create a new recipe.</h2>
+            <div className='bg-slate-200 '>
+                <div className='flex flex-col gap-10 justify-between items-center p-5  mt-40 '>
+                    <h2 className='text-black text-xl sm:text-2xl text-center font-semibold'>You need to be signed in to create a new recipe.</h2>
 
-                    <div className='flex flex-row justify-between w-4/6 sm:w-3/6  md:w-2/6 m-2 p-2'>
+                    <div className='flex flex-row justify-between w-4/5 sm:w-3/6  md:w-2/6 m-2 p-3 text-sm font-semibold'>
 
                         <button id ="go back" className = "text-lg  bg-yellow-500 rounded p-1 hover:shadow-lg sm:p-2" 
                         onClick={(e)=>{handleClick(e)}}>Go Back</button>

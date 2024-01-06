@@ -149,7 +149,7 @@ export default function LogInPage() {
           
           <div className={`h-screen flex flex-col items-center justify-center bg-slate-200 text-black dark:bg-gray-500 
            sm:flex sm:flex-row sm:justify-evenly`}>
-            <div className={`ml-5`}>
+            <div className={`m-9`}>
               <div className={`text-3xl mb-2 sm:text-4xl dark:text-white`}>
                 <h1>Welcome to {" "}
                   <span className = "text-yellow-500 ">
@@ -157,10 +157,9 @@ export default function LogInPage() {
                   </span>
                 </h1>
               </div>
-              <div className={`text-lg  dark:text-white`}>  
+              <div className={`text-lg font-semibold   dark:text-white`}>  
                 <p>Share your love for cooking, discover new recipes and more!</p>
               </div>
-             
           </div> 
           <div>
           <div className=" bg-yellow-500 rounded p-5 m-2">
@@ -170,7 +169,7 @@ export default function LogInPage() {
           </div>
           <div className={`mt-4 md:text-xl dark:text-white`}>
                 <p>Don&apos;t have an account? <span className=" hover:text-yellow-500">
-                    <Link href="/auth/sign-up">Sign up here!</Link> </span>
+                    <Link href="/auth/sign-up" className="font-semibold">Sign up here!</Link> </span>
                 </p>
           </div>
           </div>
