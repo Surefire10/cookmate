@@ -10,7 +10,7 @@ function ReviewBox({recipe}: {recipe: Recipes}){
 
     return(
 
-        <div className="p-8 w-2/4 text-xl font-bold align-middle bg-amber-100 ">
+        <div className="p-9 w-3/5 sm:w-2/4 md:w-2/5 lg:w-1/5 text-xl font-bold align-middle bg-amber-100 rounded ">
             <div className="flex flex-col items-center gap-3">
                 <p>
                     Have you tried this recipe?
@@ -82,7 +82,7 @@ function RecipeBox({recipeId}: {recipeId: number}){
                 : <></>}
             </div>
     
-            <div className="md:ml-5">
+            <div className="">
                 <div>
                     <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Ingredients:</h3>
                     <ul className="font-medium">
@@ -95,7 +95,7 @@ function RecipeBox({recipeId}: {recipeId: number}){
                     </ul>
                 </div>
             </div>
-            <div className="md: ml-5">
+            <div className="">
                 <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Directions:</h3>
                 <ul className="font-medium">
                 {recipe.directions.map((directions, index)=>{
