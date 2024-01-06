@@ -8,7 +8,7 @@ export default function NotFound(){
                 <AlertTriangle stroke="white" width={200} height={50}/>
             </div>
             <div>
-                Sorry, Couldn't find the page you're looking for.
+                Sorry&lsquo; Couldn&lsquo;t find the page you&lsquo;re looking for.
             </div>
         </div>
     )
