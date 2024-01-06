@@ -1,10 +1,15 @@
-
+import { AlertTriangle } from "react-feather"
 
 export default function NotFound(){
 
     return(
-        <div>
-            lol not found ahah
+        <div className="flex flex-col gap-2 items-center justify-center h-screen">
+            <div className="">
+                <AlertTriangle stroke="white" width={200} height={50}/>
+            </div>
+            <div>
+                Sorry, Couldn't find the page you're looking for.
+            </div>
         </div>
     )
 }

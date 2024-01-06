@@ -1,9 +1,10 @@
 "use client"
 import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
-import {Header, Stars} from "../subcomponents/components"
-import img  from "next/image"
+import {Accents, Header, Stars} from "../subcomponents/components"
 import ReactLoading from 'react-loading';
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 
 function ReviewBox({recipe}: {recipe: Recipes}){
@@ -32,9 +33,8 @@ function ReviewBox({recipe}: {recipe: Recipes}){
 function RecipeBox({currentUser}: {currentUser:string}){
 
 
-    console.log(currentUser)
-
     const [userRecipes , setUserRecipes] =  useState<Recipes[]>([])
+    const [isLoading , setLoading] =  useState(true)
 
     useEffect(()=>{
 
@@ -45,6 +45,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
     
             const response = await fetch(url)
             let data = await response.json() as Recipes[]
+            setLoading(false)
             console.log(data)
             setUserRecipes(data)
 
@@ -58,19 +59,18 @@ function RecipeBox({currentUser}: {currentUser:string}){
     
     getData() 
     
-     })
-    
-    if(userRecipes){
+     },[])
 
+    if(!isLoading){
         return(
 
-            <div className="flex flex-col items-center justify-center bg-slate-200 ">
-
+            <div className="flex flex-col items-center justify-center bg-slate-200 w-10/12  ">
+                
                 {userRecipes.map((recipe)=>{
 
                     return(
 
-                        <div className="flex flex-col p-5 text-black w-11/12 gap-10 bg-slate-50 sm:w-4/5 " key={recipe.id}>
+                        <div className="flex flex-col p-5 text-black w-11/12 gap-10 bg-slate-50 sm:w-4/5  border-t-gray-500 border-t " key={recipe.id}>
                             <div className="flex flex-row mt-4 items-center justify-between text-2xl md:text-3xl md:w-11/12">
                                 <div>
                                     <h2 className="font-bold">{recipe.name}</h2>
@@ -82,15 +82,17 @@ function RecipeBox({currentUser}: {currentUser:string}){
                                 </div>
                             </div>
                             <div className="flex flex-col justify-between gap-3  items-center">
-                                <div className="m-2 w-3/5 md:w-3/6 lg:w-2/6">
+                                <div className="m-2 w-3/5 md:w-3/6 lg:w-3/6">
                                     <img src={recipe.picture} alt={recipe.name}/>
                                 </div>
+                                {recipe.heading?
                                 <div className="mt-5 font-semibold md:w-11/12">
                                     <p>{recipe.heading}</p>
                                 </div>
+                                :<></>}
                             </div>
     
-                            <div className="md: ml-5">
+                            <div className="md:ml-5">
                                 <div>
                                     <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Ingredients:</h3>
                                     <ul className="font-medium">
@@ -103,7 +105,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
                                     </ul>
                                 </div>
                             </div>
-                            <div className="md: ml-5">
+                            <div className="md:ml-5">
                                 <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Directions:</h3>
                                 <ul className="font-medium">
                                 {recipe.directions.map((directions, index)=>{
@@ -114,11 +116,13 @@ function RecipeBox({currentUser}: {currentUser:string}){
                                 })}
                                 </ul>
                             </div>
+                            {recipe.additional?
                             <div>
                                 <h2 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Chef&apos;s Notes:</h2>
                                 <p className="font-medium text-lg">{recipe.additional}</p>
                             </div>
-                            <div className="flex justify-center">
+                            :<></>}
+                            <div className="flex justify-center ">
                                 <ReviewBox recipe={recipe}></ReviewBox>
                             </div>
                      </div>
@@ -143,26 +147,41 @@ function RecipeBox({currentUser}: {currentUser:string}){
 
 export default function Profile({params}:{params:{username:string}}){
 
-    let currentUser = params.username
-    console.log(currentUser)
+    const router = useRouter()
+    const currentUser = params.username
+    const session = useSession({
+        required: true,
+        onUnauthenticated() {
+            
+            router.push("/not-found")
 
-    if(currentUser){
+        },})
 
-    return(
+        return(
 
-        <div className="bg-slate-200 ">
-            <Header/>
-            <div className="flex flex-col justify-between items-center mt-5">
-                <RecipeBox currentUser={currentUser}/>
+            <div className="bg-slate-200">
+                <Header/>
+                <div className="flex flex-col justify-between items-center shadow-lg mt-5  ">
+                    <RecipeBox currentUser={currentUser}/>
+                </div>
+                <div className="mt-9" >
+                    <Accents/>
+                </div>
             </div>
-        </div>
+    
+           
+        )
 
-       
-    )
+        
 
 
-    }else{
 
-        <div className="text-white">blab</div>
-    }
+
 }
+
+    
+
+    
+
+
+

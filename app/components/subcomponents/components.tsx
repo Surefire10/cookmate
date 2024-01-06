@@ -3,7 +3,8 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Link from "next/link"
 
-import { BookOpen, ChevronDown, Home, LogIn, LogOut, Menu, Search, Star, User, X } from "react-feather"
+import { BookOpen, ChevronDown, ChevronUp, Edit2, Home, LogIn, LogOut, Menu, Search, Star, User, X } from "react-feather"
+import { eventNames } from "process"
 
 function SearchBar(){
 
@@ -11,6 +12,19 @@ function SearchBar(){
     const [searchQuery, setSearchQuery] = useState("")
     const [isFocused, setFocued] = useState(false)
     const searchTerms = ["Chicken" , "Beef", "Fish", "Stuff"]
+
+
+    const handleClick = (e:React.MouseEvent<HTMLLIElement>, item:string) =>{
+        
+        
+
+        if(e.currentTarget.id === "autocomplete"){
+
+            setSearchQuery(item)
+            setFocued(false)
+        }
+
+    }
 
     const onSearch = (event: any) =>{
 
@@ -31,16 +45,15 @@ function SearchBar(){
                     placeholder="Search Recipes"
                     onChange={(e)=>{setSearchQuery(e.target.value)}}
                     onKeyUp={(e)=>{onSearch(e)}}
-                    value={searchQuery}
                     onFocus={()=> setFocued(true)}
-                    onBlur={()=> setFocued(false)}>
+                    value={searchQuery}
+                    >
                 </input>
                 <div className='p-1 hover:shadow cursor-pointer' 
                     onClick={(e)=>{onSearch(e)}} >
                     <Search className='stroke-yellow-500'/>
                  </div>
-                 {isFocused? 
-
+                {isFocused?
                 <div className={`absolute top-8 left-0 w-full bg-slate-100`}>
                     <ul>
                         {searchTerms.filter(item =>{
@@ -54,10 +67,10 @@ function SearchBar(){
                         }).
                         map((item,index) =>{
                             return(
-                                <li key={index}
+                                <li key={index} id = "autocomplete"
                                 className={`text-black hover:cursor-pointer
                                  hover:bg-gray-200 w-full`}
-                                onClick={(e)=>{setSearchQuery(item)}}
+                                onClick={(e)=>{handleClick(e,item)}}
                                 >
                                     {item}
                                 </li>
@@ -66,8 +79,8 @@ function SearchBar(){
                         
                         }
                     </ul> 
-                </div>
-                : <></>}
+                </div>:<></>}
+
              </div>
         
     )
@@ -90,7 +103,7 @@ export function Header(){
 
     const signOutHandler = () =>{
 
-        signOut()
+        signOut({callbackUrl:""})
         
     }
 
@@ -214,8 +227,6 @@ export function Header(){
 
         links = [ 
             
-            {link:"/", label: "Home" ,icon: <Home className=" stroke-black hover:stroke-yellow-500"  />},
-            {link:"/components/compose", label: "New Recipe",icon: <BookOpen className=" stroke-black hover:stroke-yellow-500"/>},
             {link:"/components/" +  currentUser.name, label: 
             "My Profile",icon: 
             <User 
@@ -226,8 +237,7 @@ export function Header(){
 
         links = [ 
             
-            {link:"", label: "Home" ,icon: <Home className=" stroke-black hover:stroke-yellow-500"  />},
-            {link:"/components/compose", label: "New Recipe",icon: <BookOpen className=" stroke-black hover:stroke-yellow-500"/>},
+            {link:"", label: "",icon: ""},
     
         ]
 
@@ -319,9 +329,54 @@ export function Header(){
         
         )
     }   
-    
-  
 
+function Footer(){
+
+
+    return(
+
+        <div className='flex flex-col  w-full  text-black font-semibold text-xlborder-t-black '>
+            <div className='flex flex-row items-center justify-center m-5 bg-yellow-500 p-3 w-40 rounded text-white text-center '>
+                    Cookmate
+            </div>
+            <div className='flex flex-row text-lg font-normal gap-5 text-center  p-2 justify-center'>
+                <ul className='flex flex-row gap-5 '>
+                    <li>Contact us</li>
+                    <li>Careers</li>
+                    <li>Advertise</li>
+                    <li>Terms of Service</li>
+                </ul>
+            </div>
+    
+        </div>
+    )
+    }    
+  
+export function Accents(){
+    
+    const router = useRouter()
+    const handlClick = ()=>{
+
+        window.scrollTo(0,0)
+    }
+
+    
+
+    return(
+
+        <div>
+            <Footer/>
+                    <div onClick={handlClick} 
+                    className='fixed bg-yellow-500 bottom-0 right-0 rounded m-2 p-3 cursor-pointer'>
+                        <ChevronUp/>
+                    </div>
+                    <div onClick={() => router.push("/components/compose")} 
+                    className='fixed bg-yellow-500 bottom-16 right-0 rounded m-2 p-3 cursor-pointer'>
+                        <Edit2/>
+                    </div>
+        </div>
+    )
+}
 
 
 

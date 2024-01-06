@@ -1,7 +1,7 @@
 "use client"
 import { Recipes } from "@prisma/client"
 import { useEffect, useState } from "react"
-import {Header, Stars} from "../../subcomponents/components"
+import {Accents, Header, Stars} from "../../subcomponents/components"
 import ReactLoading from 'react-loading';
 import img from "next/image";
 
@@ -60,8 +60,8 @@ function RecipeBox({recipeId}: {recipeId: number}){
     if(recipe){
 
     return(
-        <div className="flex flex-col p-5 text-black w-full gap-10 bg-slate-50 md:w-4/5">
-            <div className="flex flex-row mt-4 items-center justify-between text-3xl md:text-4xl md:w-11/12">
+        <div className="flex flex-col  p-5 text-black  gap-10 bg-slate-50 md:w-4/5 w-10/12 ">
+            <div className="flex flex-row  mt-4 items-center justify-between text-xl sm:text-2xl w-11/12">
                 <div>
                     <h2 className="font-bold">{recipe.name}</h2>
                 </div>
@@ -72,16 +72,18 @@ function RecipeBox({recipeId}: {recipeId: number}){
                 </div>
             </div>
             <div className="flex flex-col justify-between gap-3 items-center ">
-                <div className="m-2">
-                    <img src={recipe.picture} alt ={recipe.name}/>
+                <div className="m-2 w-4/6 sm:w-3/6 md:2/6 lg:w-3/5">
+                    <img className="w-full" src={recipe.picture} alt ={recipe.name}/>
                 </div>
+                {recipe.heading?
                 <div className="mt-5 font-semibold md:w-11/12">
                     <p>{recipe.heading}</p>
                 </div>
+                : <></>}
             </div>
     
-            <div className="md: ml-5">
-                <div >
+            <div className="md:ml-5">
+                <div>
                     <h3 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Ingredients:</h3>
                     <ul className="font-medium">
                     {recipe.ingredients.map((ingredient, index)=>{
@@ -104,10 +106,12 @@ function RecipeBox({recipeId}: {recipeId: number}){
                 })}
                 </ul>
             </div>
+            {recipe.additional?
             <div>
                 <h2 className="text-xl font-bold mt-2 mb-2 md:text-2xl">Chef&apos;s Notes:</h2>
                 <p className="font-medium text-lg">{recipe.additional}</p>
             </div>
+            :<></>}
             <div className="flex justify-center">
                 <ReviewBox recipe={recipe}></ReviewBox>
             </div>
@@ -134,12 +138,15 @@ export default function RecipePage({params}:{params:{id:number}}){
 
     return(
 
-        <div>
+        <div className="bg-slate-200 shadow-lg ">
             <Header/>
-            <div className="flex flex-col justify-between bg-slate-200 items-center ">
+            <div className="flex flex-col justify-between bg-slate-200 items-center shadow-lg mt-5">
                 <RecipeBox recipeId={recipeId}/>
             </div>
-        </div>
+            <div className="mt-2" >
+                <Accents/>
+            </div>
+        </div>        
 
        
     )

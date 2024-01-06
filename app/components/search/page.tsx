@@ -11,11 +11,9 @@ import {Header, Stars} from "../subcomponents/components"
 
     const[recipes, setRecipes] = useState<Recipes[]>([])
     const [isLoading, setLoading] = useState(true)
-    const [isConnected, setConnected] = useState(true)
     const searchParams = useSearchParams()
     const router = useRouter()
     const searchQuery = searchParams.get("q")
-    console.log(searchQuery)
 
     
     useEffect(()=>{
@@ -54,7 +52,7 @@ import {Header, Stars} from "../subcomponents/components"
         if(isLoading){
             return(
 
-                <div className ="flex flex-row justify-center h-screen align-middle items-center ">
+                <div className ="flex flex-row justify-center h-screen w-full bg-slate-50 align-middle items-center ">
                     <ReactLoading className='fill-black' 
                     type='bubbles' color= "black" width={100}></ReactLoading>
                 </div> 
