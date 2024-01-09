@@ -20,7 +20,6 @@ import {Accents, Header, Stars} from "../subcomponents/components"
         const getData = async () =>{
                 const url = "/api/search?q="+searchQuery
             try{
-
                 const response = await fetch(url)
                 
                 let data = await response.json() as Recipes[]
@@ -44,9 +43,7 @@ import {Accents, Header, Stars} from "../subcomponents/components"
             return(
 
                 <div className ="flex flex-row justify-center h-screen w-full bg-slate-200 align-middle items-center ">
-                    <ReactLoading className='fill-black' 
-                    type='bubbles' color= "black" width={100}>
-                    </ReactLoading>
+                    <ReactLoading type='bubbles' color= "black" width={100}/>
                 </div> 
 
             )
