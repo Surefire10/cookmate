@@ -129,12 +129,12 @@ export default function HomePage(){
 
     return(
         
-        <div className="flex flex-col bg-slate-200 h-fityy ">
+        <div className="flex flex-col bg-slate-200  ">
             <Header/>
-            <div className='flex flex-col items-center justify-center align-middle'>
+            <div className='flex flex-col items-center justify-center flex-grow align-middle'>
                 <MainArea/>
-               <Accents/>
             </div>
+            <Accents/>
         </div>
         
     )

@@ -3,14 +3,14 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Link from "next/link"
 
-import { ChevronDown, ChevronUp, Edit2, LogIn, LogOut, Menu, Search, Star, User, X } from "react-feather"
+import { ChevronDown, ChevronUp, Edit2, LogIn, LogOut, Menu, Search, Star, User, X,Send } from "react-feather"
 
 function SearchBar(){
 
     const router = useRouter()
     const [searchQuery, setSearchQuery] = useState("")
     const [isFocused, setFocued] = useState(false)
-    const searchTerms = ["Chicken" , "Beef", "Fish", "Stuff"]
+    const searchTerms = ["chicken" , "beef", "fish", "soup","chops","crab"]
 
 
     const handleClick = (e:React.MouseEvent<HTMLLIElement>, item:string) =>{
@@ -30,8 +30,13 @@ function SearchBar(){
         console.log(event.key)
 
         if(event.key === "Enter"){
+
             const encodedSearchQuery = encodeURI(searchQuery)
             router.push("/components/search?q="+encodedSearchQuery)
+
+        }else if(searchQuery.trim() === "" || searchQuery === ""){
+
+            return;
         }
         
     }   
@@ -53,7 +58,7 @@ function SearchBar(){
                     <Search className='stroke-yellow-500'/>
                  </div>
                 {isFocused?
-                <div className={`absolute top-8 left-0 w-full bg-slate-100`}>
+                <div className={`absolute top-8 left-0 w-full bg-slate-100 h-fit`}>
                     <ul>
                         {searchTerms.filter(item =>{
 
@@ -68,7 +73,7 @@ function SearchBar(){
                             return(
                                 <li key={index} id = "autocomplete"
                                 className={`text-black hover:cursor-pointer
-                                 hover:bg-gray-200 w-full`}
+                                 hover:bg-gray-200 w-full p-1`}
                                 onClick={(e)=>{handleClick(e,item)}}
                                 >
                                     {item}
@@ -274,10 +279,8 @@ export function Header(){
     }
         return(
             <div className=''>
-
-             {/* overlay    */}
             {open?  
-              <div className='absolute top-0 left-0 bg-slate-200 h-1/2 w-full sm:block '>
+              <div className='absolute top-0 left-0 bg-slate-200 h-fit w-full sm:block shadow-lg '>
                   <div className='cursor-pointer float-right p-1'>
                         <X className='m-5 stroke-black hover:stroke-yellow-500' onClick={handleMenuClick}></X>
                   </div>
@@ -330,21 +333,33 @@ function Footer(){
     const router = useRouter()
 
     return(
+        <div className="bg-black w-full  flex flex-col gap-10">
+            <div className='flex cursor-pointer flex-col items-center justify-around align-middle text-white font-semibold text-lg gap-5'>
+                <div onClick={()=>{router.push("/")}}
+                className='flex flex-col items-center justify-center text-xl m-5 bg-yellow-500 p-3 w-40  md:w-60 md:text-4xl rounded text-black text-center '>
+                        Cookmate
+                </div>
 
-        <div className='flex cursor-pointer flex-col items-center w-full text-black font-semibold text-xl '>
-            <div onClick={()=>{router.push("/")}}
-            className='flex flex-row items-center justify-center mt-10 mb-5 bg-yellow-500 p-3 w-40  md:w-60 md:text-4xl rounded text-white text-center '>
-                    Cookmate
+                <div className="flex flex-row gap-5 ">
+                    <p>Subscribe to our newsletter.</p>
+                    <div className="flex flex-row gap-2 rounded">
+                        <input width={15} className="rounded text-black p-1 text-sm"></input>
+                        <div className="bg-yellow-500 p-1 rounded">
+                            <Send stroke="black"></Send>
+                        </div>
+                    </div>
+                  
+                </div>
+              
             </div>
-            <div className='flex flex-row text-lg font-normal gap-5 text-center  p-2 justify-center'>
-                <ul className='flex flex-row gap-5 '>
-                    <li>Contact us</li>
-                    <li>Careers</li>
-                    <li>Advertise</li>
-                    <li>Terms of Service</li>
+            <div className='flex flex-row text-sm font-normal gap-5 text-center p-2 justify-center flex-grow'>
+                <ul className='flex flex-row gap-5'>
+                    <li className="hover:underline hover:cursor-pointer">Contact us</li>
+                    <li className="hover:underline hover:cursor-pointer">Careers</li>
+                    <li className="hover:underline hover:cursor-pointer">Terms and Conditions</li>
+                    <li className="hover:underline hover:cursor-pointer">Privacy Policy</li>
                 </ul>
             </div>
-    
         </div>
     )
     }    

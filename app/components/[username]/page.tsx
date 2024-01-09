@@ -161,12 +161,10 @@ export default function Profile({params}:{params:{username:string}}){
 
             <div className="bg-slate-200">
                 <Header/>
-                <div className="flex flex-col justify-between items-center shadow-lg mt-5  ">
+                <div className="flex flex-col justify-between items-center  mt-5 flex-grow ">
                     <RecipeBox currentUser={currentUser}/>
                 </div>
-                <div className="mt-9" >
                     <Accents/>
-                </div>
             </div>
     
            

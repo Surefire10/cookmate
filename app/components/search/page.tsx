@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AlertTriangle, ChevronUp } from "react-feather";
 import { Recipes } from "@prisma/client";
-import {Header, Stars} from "../subcomponents/components"
+import {Accents, Header, Stars} from "../subcomponents/components"
 
 
  function MainArea(){
@@ -52,7 +52,7 @@ import {Header, Stars} from "../subcomponents/components"
         if(isLoading){
             return(
 
-                <div className ="flex flex-row justify-center h-screen w-full bg-slate-50 align-middle items-center ">
+                <div className ="flex flex-row justify-center h-screen w-full bg-slate-200 align-middle items-center ">
                     <ReactLoading className='fill-black' 
                     type='bubbles' color= "black" width={100}></ReactLoading>
                 </div> 
@@ -62,7 +62,7 @@ import {Header, Stars} from "../subcomponents/components"
         }else{
             return(
 
-        <div className ="flex flex-col items-center gap-2 w-10/12 bg-slate-50 m-10 h-full">
+        <div className ="flex flex-col items-center gap-2 w-10/12 bg-slate-50 m-10 h-fit flex-grow ">
             <div className='flex flex-col p-3 m-5 text-black shadow gap-3 w-full '>
                 <h1 className='text-lg font-semibold'>Search Results For { searchQuery?.toLowerCase()}</h1>
             </div>
@@ -118,13 +118,10 @@ export default function HomePage() {
     return(
         <div className="flex flex-col bg-slate-200 h-screen">
             <Header/>
-            <div className='flex flex-col items-center justify-center  bg-slate-200'>
+            <div className='flex flex-col items-center justify-center flex-grow  bg-slate-200'>
                 <MainArea/>
-                <div onClick={handlClick} 
-                className='fixed bg-yellow-500 bottom-0 right-0 rounded m-2 p-3 cursor-pointer'>
-                   <ChevronUp/>
-                </div>
             </div>
+            <Accents></Accents>
         </div>
     )
 }

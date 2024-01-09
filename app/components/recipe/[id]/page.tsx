@@ -140,12 +140,10 @@ export default function RecipePage({params}:{params:{id:number}}){
 
         <div className="bg-slate-200 shadow-lg ">
             <Header/>
-            <div className="flex flex-col justify-between bg-slate-200 items-center shadow-lg mt-5">
+            <div className="flex flex-col justify-between bg-slate-200 items-center flex-grow mt-5">
                 <RecipeBox recipeId={recipeId}/>
             </div>
-            <div className="mt-2" >
-                <Accents/>
-            </div>
+            <Accents/>
         </div>        
 
        
