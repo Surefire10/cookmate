@@ -64,9 +64,11 @@ function RecipeBox({currentUser}: {currentUser:string}){
     if(!isLoading){
         return(
 
-            <div className="flex flex-col items-center justify-center bg-slate-200 w-10/12  ">
+            <div className="flex flex-col items-center justify-center bg-slate-200 w-10/12 flex-grow ">
                 
-                {userRecipes.map((recipe)=>{
+                {!userRecipes.length?
+                
+                userRecipes.map((recipe)=>{
 
                     return(
 
@@ -127,7 +129,17 @@ function RecipeBox({currentUser}: {currentUser:string}){
                             </div>
                      </div>
                     )
-                })}
+                }): 
+                <div className="flex flex-col text-center  h-screen w-11/12 m-2 bg-slate-50 text-black font-semibold">
+                    
+                    <div className="mt-10">
+                        <p className="text-2xl mt-5">You haven't added any recipes yet.</p>
+                        <p className="text-lg mt-5">Whenever you add a recipe, it get's displayed here.</p>
+                        <p>To add a recipe, <a className="hover:bg-yellow-500 hover:cursor-pointer" href="/components/compose">click here.</a> Or click the yellow pen button at the bottom right.</p>
+                    </div>
+                  
+                </div>
+                }
             </div>
         )
 

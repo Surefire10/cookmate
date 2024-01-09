@@ -108,8 +108,10 @@ function SearchBar({setOpen}:setOpenProp){
 export function Header(){
 
     const {data: session} = useSession()
+    let currentUser = session?.user.name
     const [dropDown, setDrop] = useState(false)
-    
+    const router = useRouter()
+
     const [hover, setHover] = useState(false)
 
 
@@ -147,7 +149,7 @@ export function Header(){
                     <ul className='p-2 bg-slate-50'>
                         <li className='p-2'>
                             <div className='flex flex-row gap-2'>
-                                <User></User> Signed in as: {session?.user.name}
+                                <User></User> Signed in as: {currentUser}
                             </div>
                         </li>
                     </ul>
@@ -178,12 +180,12 @@ export function Header(){
                 className='absolute top-11 bg-slate-50 md:hidden text-black font-normal min-w-max  h-fit shadow rounded'>
                    {session?.user?
                     <ul className='p-2'>
-                        <li className='p-2  hover:bg-slate-200'>
-                            <div onClick={()=>{}} className='flex flex-row gap-2'>
-                                <User></User> Signed in as: {session?.user.name}
+                        <li className='p-1  hover:bg-slate-200'>
+                            <div onClick={()=>{router.push("/components/" +  currentUser)}} className='flex flex-row gap-2'>
+                                <User></User> Signed in as: {currentUser}
                             </div>
                         </li>
-                        <li className='p-2 hover:bg-slate-200'>
+                        <li className='p-1 hover:bg-slate-200'>
                             <div className='flex flex-row gap-2'>
                                 <LogOut></LogOut>
                                 <button onClick={()=>signOutHandler()}>Log out</button>
@@ -192,7 +194,7 @@ export function Header(){
                     </ul>
                     :
                     <ul className='p-2'>
-                        <li className='p-2 hover:bg-slate-200'>
+                        <li className='p-1 hover:bg-slate-200'>
                             <div className='flex flex-row gap-2 '>
                                 <LogIn></LogIn>
                                 <button onClick={()=>signInHandler()}>
@@ -240,7 +242,7 @@ export function Header(){
 
         links = [ 
             
-            {link:"/components/" +  currentUser.name, label: 
+            {link:"/components/" +  currentUser, label: 
             currentUser,icon: 
             <User 
              className=" stroke-black hover:stroke-yellow-500"/>},
@@ -324,7 +326,7 @@ function Footer(){
     const router = useRouter()
 
     return(
-        <div className="bg-black w-full flex flex-col gap-5 sm:items-center">
+        <div className="bg-black w-full flex flex-col md:justify-between gap-5 sm:items-center h-64">
             <div className='flex cursor-pointer flex-col md:flex-row md:justify-between md:w-11/12 lg:w-9/12 items-center  align-middle text-white font-semibold text-lg '>
                 <div onClick={()=>{router.push("/")}}
                 className='flex flex-col items-center justify-center text-xl m-5 bg-yellow-500 p-3 w-40  md:w-60 md:text-4xl rounded text-black text-center '>
@@ -345,7 +347,7 @@ function Footer(){
                 </div>
               
             </div>
-            <div className='flex flex-row text-xs md:text-lg font-normal gap-5 text-center p-2 justify-center flex-grow'>
+            <div className='flex flex-row text-xs md:text-base  font-normal gap-5 text-center p-2 justify-center flex-grow'>
                 <ul className='flex flex-row gap-5 m-1'>
                     <li className="hover:underline hover:cursor-pointer">Contact us</li>
                     <li className="hover:underline hover:cursor-pointer">Careers</li>
@@ -362,17 +364,7 @@ function Footer(){
   
 export function Accents(){
 
-    
 
-    const [scrollPosition, setScrollPosition] = useState(0)
-    const [pageHeight, setPageHeight] = useState(0)
-
-
-    const handleScroll = () =>{
-
-        const position = window.scrollY
-        setScrollPosition(position)
-    }
     
     const router = useRouter()
     const handlClick = ()=>{
@@ -380,41 +372,22 @@ export function Accents(){
         window.scrollTo(0,0)
     }
 
-    useEffect(()=>{
-
-        window.addEventListener("scroll", handleScroll)
-        let height = window.innerHeight
-        setPageHeight(height)
-
-        return ()=>{
-
-            window.removeEventListener("scroll",handleScroll)
-
-        }
-
-    },[scrollPosition])
-
-
-    
    
-
 
     return(
 
         <div>
             <Footer/>
-            {scrollPosition < pageHeight + 150?
                 <div>
                     <div onClick={handlClick} 
-                    className='fixed bg-yellow-500  bottom-16 right-0 rounded m-2 p-3 cursor-pointer'>
+                    className='fixed bg-yellow-500  bottom-0 right-0 rounded m-2 p-3 cursor-pointer'>
                         <ChevronUp/>
                     </div>
                     <div onClick={() => router.push("/components/compose")} 
-                    className='fixed bg-yellow-500 bottom-0  right-0 rounded m-2 p-3 cursor-pointer'>
+                    className='fixed bg-yellow-500 bottom-16  right-0 rounded m-2 p-3 cursor-pointer'>
                         <Edit2/>
                     </div>
                 </div>    
-                :<></>}
         </div>
     )
 }
