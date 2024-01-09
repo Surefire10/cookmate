@@ -1,11 +1,16 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 
 import { ChevronDown, ChevronUp, Edit2, LogIn, LogOut, Menu, Search, Star, User, X,Send } from "react-feather"
 
-function SearchBar(){
+
+interface setOpenProp {
+
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+function SearchBar({setOpen}:setOpenProp){
 
     const router = useRouter()
     const [searchQuery, setSearchQuery] = useState("")
@@ -14,8 +19,6 @@ function SearchBar(){
 
 
     const handleClick = (e:React.MouseEvent<HTMLLIElement>, item:string) =>{
-        
-        
 
         if(e.currentTarget.id === "autocomplete"){
 
@@ -25,18 +28,28 @@ function SearchBar(){
 
     }
 
-    const onSearch = (event: any) =>{
+    const onSearch = (event: React.KeyboardEvent) =>{
 
-        console.log(event.key)
+        
+        if( event.key === "Enter" && searchQuery !=="" && searchQuery !== " "){
 
-        if(event.key === "Enter"){
-
+            setOpen(false)
             const encodedSearchQuery = encodeURI(searchQuery)
             router.push("/components/search?q="+encodedSearchQuery)
 
-        }else if(searchQuery.trim() === "" || searchQuery === ""){
+        }
+        
+    }
+    
+    const onSearchClick = (event: React.MouseEvent) =>{
 
-            return;
+
+        if( searchQuery !=="" && searchQuery !== " "){
+
+            setOpen(false)
+            const encodedSearchQuery = encodeURI(searchQuery)
+            router.push("/components/search?q="+encodedSearchQuery)
+
         }
         
     }   
@@ -54,7 +67,7 @@ function SearchBar(){
                     >
                 </input>
                 <div className='p-1 hover:shadow cursor-pointer' 
-                    onClick={(e)=>{onSearch(e)}} >
+                    onClick={(e)=>{onSearchClick(e)}} >
                     <Search className='stroke-yellow-500'/>
                  </div>
                 {isFocused?
@@ -96,6 +109,7 @@ export function Header(){
 
     const {data: session} = useSession()
     const [dropDown, setDrop] = useState(false)
+    
     const [hover, setHover] = useState(false)
 
 
@@ -164,8 +178,8 @@ export function Header(){
                 className='absolute top-11 bg-slate-50 md:hidden text-black font-normal min-w-max  h-fit shadow rounded'>
                    {session?.user?
                     <ul className='p-2'>
-                        <li className='p-2'>
-                            <div className='flex flex-row gap-2'>
+                        <li className='p-2  hover:bg-slate-200'>
+                            <div onClick={()=>{}} className='flex flex-row gap-2'>
                                 <User></User> Signed in as: {session?.user.name}
                             </div>
                         </li>
@@ -204,7 +218,7 @@ export function Header(){
             </div>
             <div className='flex flex-row items-center justify-between'>
                 <div className={`hidden sm:block`}>
-                    <SearchBar/>
+                    <SearchBar setOpen={setDrop}/>
                 </div>
                 <Navbar/>
             </div>
@@ -217,8 +231,7 @@ export function Header(){
  function Navbar(){
 
     const session = useSession()
-    const currentUser = session.data?.user
-    const[active , setActive] = useState("Home")
+    const currentUser = session.data?.user.name
     const[open, setOpen] = useState(false)
 
     let links = []
@@ -228,7 +241,7 @@ export function Header(){
         links = [ 
             
             {link:"/components/" +  currentUser.name, label: 
-            "My Profile",icon: 
+            currentUser,icon: 
             <User 
              className=" stroke-black hover:stroke-yellow-500"/>},
     
@@ -257,11 +270,8 @@ export function Header(){
             >
                 <a 
                 href={item.link}
-                key={item.label}
-                data-active={item.label === active || undefined}
-                onClick={(event) =>{
-                    setActive(item.label)
-                }}
+                key={item.link}
+                
             
                 >
                     {item.icon}
@@ -286,33 +296,12 @@ export function Header(){
                   </div>
                 <div className='flex flex-col'>
                     <div className='flex flex-col m-5'>
-                        <SearchBar/>
-                        {links.map((item,index)=>{
-                            return(
-                                <div className='' key={index}>
-                                    <a 
-                                    className='m-2'
-                                    href={item.link}
-                                    key={item.label}
-
-                                    data-active={item.label === active || undefined}
-                                    onClick={() =>{
-                                        setActive(item.label)
-                                    }}
-                                    >
-                                    {
-                                        <div className='flex flex-row  gap-1 text-black text-base hover:text-yellow-500'>{item.icon} {item.label}</div>
-                                    }
-                                    </a>
-                                </div>
-
-                        )
-                        })}
+                        <SearchBar setOpen = {setOpen}/>
                         </div>
                     </div>
                 </div>
                 : 
-                <div className="inline-block m-1 cursor-pointer ">
+                <div className="inline-block m-3 cursor-pointer ">
                     <Menu onClick={handleMenuClick} className=" stroke-black hover:stroke-yellow-500 sm:hidden"></Menu>
                     <div className='hidden sm:block'>
                         {items}
@@ -328,32 +317,36 @@ export function Header(){
         )
     }   
 
+
 function Footer(){
 
+  
     const router = useRouter()
 
     return(
-        <div className="bg-black w-full  flex flex-col gap-10">
-            <div className='flex cursor-pointer flex-col items-center justify-around align-middle text-white font-semibold text-lg gap-5'>
+        <div className="bg-black w-full flex flex-col gap-5 sm:items-center">
+            <div className='flex cursor-pointer flex-col md:flex-row md:justify-between md:w-11/12 lg:w-9/12 items-center  align-middle text-white font-semibold text-lg '>
                 <div onClick={()=>{router.push("/")}}
                 className='flex flex-col items-center justify-center text-xl m-5 bg-yellow-500 p-3 w-40  md:w-60 md:text-4xl rounded text-black text-center '>
                         Cookmate
                 </div>
 
-                <div className="flex flex-row gap-5 ">
-                    <p>Subscribe to our newsletter.</p>
+                <div className="flex flex-col sm:flex-row gap-3 h-fit items-center">
+                    <div className="text-sm sm:text-base">
+                        <p>Subscribe to our newsletter.</p>
+                    </div>
+
                     <div className="flex flex-row gap-2 rounded">
-                        <input width={15} className="rounded text-black p-1 text-sm"></input>
-                        <div className="bg-yellow-500 p-1 rounded">
+                        <input width={15} className="rounded text-black  text-sm"></input>
+                        <div className="bg-yellow-500 rounded p-1">
                             <Send stroke="black"></Send>
                         </div>
                     </div>
-                  
                 </div>
               
             </div>
-            <div className='flex flex-row text-sm font-normal gap-5 text-center p-2 justify-center flex-grow'>
-                <ul className='flex flex-row gap-5'>
+            <div className='flex flex-row text-xs md:text-lg font-normal gap-5 text-center p-2 justify-center flex-grow'>
+                <ul className='flex flex-row gap-5 m-1'>
                     <li className="hover:underline hover:cursor-pointer">Contact us</li>
                     <li className="hover:underline hover:cursor-pointer">Careers</li>
                     <li className="hover:underline hover:cursor-pointer">Terms and Conditions</li>
@@ -362,9 +355,24 @@ function Footer(){
             </div>
         </div>
     )
-    }    
+    }   
+    
+    
+
   
 export function Accents(){
+
+    
+
+    const [scrollPosition, setScrollPosition] = useState(0)
+    const [pageHeight, setPageHeight] = useState(0)
+
+
+    const handleScroll = () =>{
+
+        const position = window.scrollY
+        setScrollPosition(position)
+    }
     
     const router = useRouter()
     const handlClick = ()=>{
@@ -372,20 +380,41 @@ export function Accents(){
         window.scrollTo(0,0)
     }
 
+    useEffect(()=>{
+
+        window.addEventListener("scroll", handleScroll)
+        let height = window.innerHeight
+        setPageHeight(height)
+
+        return ()=>{
+
+            window.removeEventListener("scroll",handleScroll)
+
+        }
+
+    },[scrollPosition])
+
+
     
+   
+
 
     return(
 
         <div>
             <Footer/>
+            {scrollPosition < pageHeight + 150?
+                <div>
                     <div onClick={handlClick} 
-                    className='fixed bg-yellow-500 bottom-0 right-0 rounded m-2 p-3 cursor-pointer'>
+                    className='fixed bg-yellow-500  bottom-16 right-0 rounded m-2 p-3 cursor-pointer'>
                         <ChevronUp/>
                     </div>
                     <div onClick={() => router.push("/components/compose")} 
-                    className='fixed bg-yellow-500 bottom-16 right-0 rounded m-2 p-3 cursor-pointer'>
+                    className='fixed bg-yellow-500 bottom-0  right-0 rounded m-2 p-3 cursor-pointer'>
                         <Edit2/>
                     </div>
+                </div>    
+                :<></>}
         </div>
     )
 }

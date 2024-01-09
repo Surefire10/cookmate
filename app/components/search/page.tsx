@@ -2,7 +2,6 @@
 import ReactLoading from 'react-loading';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { AlertTriangle, ChevronUp } from "react-feather";
 import { Recipes } from "@prisma/client";
 import {Accents, Header, Stars} from "../subcomponents/components"
 
@@ -10,7 +9,7 @@ import {Accents, Header, Stars} from "../subcomponents/components"
  function MainArea(){
 
     const[recipes, setRecipes] = useState<Recipes[]>([])
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState<boolean>(true)
     const searchParams = useSearchParams()
     const router = useRouter()
     const searchQuery = searchParams.get("q")
@@ -25,19 +24,11 @@ import {Accents, Header, Stars} from "../subcomponents/components"
                 const response = await fetch(url)
                 
                 let data = await response.json() as Recipes[]
-
-                setTimeout(()=>{
-
-                    setLoading(false)
-
-
-                },500)
-
                 setRecipes(data)
-
+                setLoading(false)
+                console.log(data)
     
                 
-                console.log(data)
             }catch(error){
 
                 console.log(error)
@@ -54,7 +45,8 @@ import {Accents, Header, Stars} from "../subcomponents/components"
 
                 <div className ="flex flex-row justify-center h-screen w-full bg-slate-200 align-middle items-center ">
                     <ReactLoading className='fill-black' 
-                    type='bubbles' color= "black" width={100}></ReactLoading>
+                    type='bubbles' color= "black" width={100}>
+                    </ReactLoading>
                 </div> 
 
             )
@@ -65,9 +57,8 @@ import {Accents, Header, Stars} from "../subcomponents/components"
         <div className ="flex flex-col items-center gap-2 w-10/12 bg-slate-50 m-10 h-fit flex-grow ">
             <div className='flex flex-col p-3 m-5 text-black shadow gap-3 w-full '>
                 <h1 className='text-lg font-semibold'>Search Results For { searchQuery?.toLowerCase()}</h1>
-            </div>
-
-            {!isLoading?            
+            </div>          
+                {recipes.length? 
                 recipes.map((item)=>{
                     return(
                         <div className=" flex flex-col mb-10  w-10/12 justify-between text-black " key={item.id}>
@@ -91,11 +82,11 @@ import {Accents, Header, Stars} from "../subcomponents/components"
                                    
                                 </div>
                             </div> 
+                            
+                          
                         </div>
                     )
-                }) : <>
-                    <ReactLoading className='fill-black' 
-                    type='bubbles' color= "black" width={100}></ReactLoading>                </>}
+                }) : <div className='text-black font-semibold'>No search results</div>}
             
         </div>
 
@@ -110,10 +101,7 @@ import {Accents, Header, Stars} from "../subcomponents/components"
 
 export default function HomePage() {
 
-    const handlClick = ()=>{
 
-        window.scrollTo(0,0)
-    }
 
     return(
         <div className="flex flex-col bg-slate-200 h-screen">
