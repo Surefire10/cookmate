@@ -66,7 +66,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
 
             <div className="flex flex-col items-center justify-center bg-slate-200 w-10/12 flex-grow ">
                 
-                {!userRecipes.length?
+                {userRecipes.length?
                 
                 userRecipes.map((recipe)=>{
 
@@ -130,7 +130,7 @@ function RecipeBox({currentUser}: {currentUser:string}){
                      </div>
                     )
                 }): 
-                <div className="flex flex-col text-center  h-screen w-11/12 m-2 bg-slate-50 text-black font-semibold">
+                <div className="flex flex-col text-center  h-screen w-11/12 m-5 bg-slate-50 text-black font-semibold">
                     
                     <div className="mt-10">
                         <p className="text-2xl mt-5">You haven&rsquo;t added any recipes yet.</p>
