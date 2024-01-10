@@ -9,7 +9,6 @@ export async function POST(req : Request){
 
     
     const body = await req.json()
-    console.log(body)
 
     try{
     const newRecipe = await prisma.recipes.create({
@@ -33,7 +32,6 @@ export async function POST(req : Request){
     return NextResponse.json(newRecipe,{status:200});
 
     }catch(error){
-        console.log(error)
         return NextResponse.json({error: error}, {status: 500})
     }
 
@@ -90,7 +88,6 @@ export async function PATCH(req:Request){
         },
       })
 
-      console.log("yes")
       return NextResponse.json({updateRecipe},{status: 200})
 
     

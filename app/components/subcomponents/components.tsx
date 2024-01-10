@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 
 import { ChevronDown, ChevronUp, Edit2, LogIn, LogOut, Menu, Search, Star, User, X,Send } from "react-feather"
@@ -20,11 +20,12 @@ function SearchBar({setOpen}:setOpenProp){
 
     const handleClick = (e:React.MouseEvent<HTMLLIElement>, item:string) =>{
 
-        if(e.currentTarget.id === "autocomplete"){
 
-            setSearchQuery(item)
-            setFocued(false)
-        }
+
+        setSearchQuery(item)
+
+
+
 
     }
 
@@ -52,7 +53,19 @@ function SearchBar({setOpen}:setOpenProp){
 
         }
         
-    }   
+    }
+    
+    const handleUnfocus = (e:React.FocusEvent<HTMLInputElement>) =>{
+
+        //enough time to capture the click event and fill in the search query
+
+        setTimeout(()=>{
+
+            setFocued(false)
+
+        },100)
+
+    }
 
     return(
         
@@ -63,6 +76,7 @@ function SearchBar({setOpen}:setOpenProp){
                     onChange={(e)=>{setSearchQuery(e.target.value)}}
                     onKeyUp={(e)=>{onSearch(e)}}
                     onFocus={()=> setFocued(true)}
+                    onBlur={(e)=>{handleUnfocus(e)}}
                     value={searchQuery}
                     >
                 </input>
@@ -178,7 +192,7 @@ export function Header(){
                 {hover?
                 <div 
                 className='absolute top-11 bg-slate-50 md:hidden text-black font-normal min-w-max  h-fit shadow rounded'>
-                   {session?.user?
+                   {currentUser?
                     <ul className='p-2'>
                         <li className='p-1  hover:bg-slate-200'>
                             <div onClick={()=>{router.push("/components/" +  currentUser)}} className='flex flex-row gap-2'>

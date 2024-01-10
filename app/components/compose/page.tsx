@@ -144,7 +144,6 @@ function MainArea(){
                 picture:        imageObject.url
             }
 
-            console.log(body)
 
             try{
             const response = await fetch("/api/recipeController",{
@@ -157,23 +156,19 @@ function MainArea(){
 
             const res = await response.json()
 
-            console.log(res)
 
-            if(response.status !== 200){
+            if(response.status === 200){
 
-                console.log("yo idk")
-            }else{
                 setTimeout(()=>{
                     router.push("/")
-                },1000)
+                },500)
 
-            }}catch(error){
 
+           
+               
             }
+        }catch(error){}
 
-        }else{
-
-            console.log("upload an image")
         }
 
     }
@@ -361,7 +356,6 @@ export default function Compose(){
 
     const  handleClick = (e :React.MouseEvent)=>{
 
-        console.log(e.currentTarget.id)
 
         if(e.currentTarget.id === "go back"){
 

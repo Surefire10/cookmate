@@ -47,7 +47,6 @@ export const authOptions:NextAuthOptions = {
     
         }
 
-        console.log(loggedInUser)
        
         return {
           //these property names are predefined 

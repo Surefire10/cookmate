@@ -46,7 +46,6 @@ function RecipeBox({currentUser}: {currentUser:string}){
             const response = await fetch(url)
             let data = await response.json() as Recipes[]
             setLoading(false)
-            console.log(data)
             setUserRecipes(data)
 
     

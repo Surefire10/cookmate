@@ -15,7 +15,6 @@ export const  ourFileRouter = {
 
       const session =  await getServerSession(authOptions)
       const user =  session?.user
-      console.log(user)
 
       // If you throw, the user will not be able to upload
       if (!user) throw new Error("Unauthorized");

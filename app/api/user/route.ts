@@ -7,7 +7,6 @@ export async function GET(req:NextRequest){
 
     let username = req.nextUrl.searchParams.get("username")
 
-    console.log(username + " on serve")
 
     if(username){
 
