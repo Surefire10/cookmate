@@ -51,42 +51,53 @@ import {Accents, Header, Stars} from "../subcomponents/components"
         }else{
             return(
 
-        <div className ="flex flex-col items-center gap-2 w-10/12 bg-slate-50 m-10 h-fit flex-grow ">
-            <div className='flex flex-col p-3 m-5 text-black shadow gap-3 w-full '>
-                <h1 className='text-lg font-semibold'>Search Results For { searchQuery?.toLowerCase()}</h1>
-            </div>          
-                {recipes.length? 
-                recipes.map((item)=>{
-                    return(
-                        <div className=" flex flex-col mb-10  w-10/12 justify-between text-black " key={item.id}>
-                            <div className="text-2xl text-black">
-                                <div className='flex flex-row w-full  rounded gap-3 cursor-pointer p-2 hover:bg-slate-100'
-                                onClick={()=>{router.push("/components/recipe/" + item.id)}}>   
-                                    <div className='max-w-44 max-h-md rounded'>
-                                        <img className= "object-cover"  src={item.picture!} alt={item.name}/>
-                                    </div>
-                                  
-                                    <div className=' flex flex-col gap-3'>
-                                        <h2 className='font-bold cursor-pointer hover:underline hover:decoration-yellow-500 hover:decoration-2 hover:underline-offset-8 mt-3'>
-                                            {item.name}
-                                        </h2>
-                                        <div className='flex flex-row mt-2 text-yellow-500'>
-                                            <Stars id = {item.id} number = {item.rating} isChangeable = {false}></Stars>
-                                            <h2 className="text-sm text-black">({item.rating})</h2>
+            <div className='flex flex-col items-center w-11/12'>
 
+                <div className='flex flex-col p-3 m-5 text-black shadow gap-3 w-full bg-slate-50 '>
+                    <h1 className='text-lg font-semibold'>Search Results For { searchQuery?.toLowerCase()}</h1>
+                </div> 
+                <div className ="flex flex-col items-center gap-1 w-11/12 bg-slate-50 m-5 h-fit flex-grow p-3
+                  lg:grid
+                  lg:auto-col-fr
+                  lg:grid-cols-2
+                  lg:grid-row-2
+                  lg:gap-5
+                  lg:p-5
+                
+                ">
+                        
+                    {recipes.length? 
+                    recipes.map((item)=>{
+                        return(
+                            <div className=" flex flex-col m-2 w-11/12 sm:w-full justify-between text-black  border-b-2  " key={item.id}>
+                                <div className="text-2xl text-black">
+                                    <div className='flex flex-row w-full  rounded gap-3 cursor-pointer sm:p-2 hover:bg-slate-100'
+                                    onClick={()=>{router.push("/components/recipe/" + item.id)}}>   
+                                        <div className='max-w-44 lg:max-w-44  max-h-md rounded'>
+                                            <img className= "object-cover sm:h-48 sm:w-60  "  src={item.picture!} alt={item.name}/>
                                         </div>
-                                    </div>
-                                   
-                                </div>
-                            </div> 
-                            
-                          
-                        </div>
-                    )
-                }) : <div className='text-black font-semibold'>No search results</div>}
-            
-        </div>
+                                    
+                                        <div className=' flex flex-col gap-5'>
+                                            <h2 className='font-bold cursor-pointer hover:underline hover:decoration-yellow-500 hover:decoration-2 hover:underline-offset-8 mt-3'>
+                                                {item.name}
+                                            </h2>
+                                            <div className='flex flex-row mt-2 text-yellow-500'>
+                                                <Stars id = {item.id} number = {item.rating} isChangeable = {false}></Stars>
+                                                <h2 className="text-sm text-black">({item.rating})</h2>
 
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div> 
+                                
+                            
+                            </div>
+                        )
+                    }) : <div className='text-black font-semibold'>No search results</div>}
+                
+            </div>
+        </div>
     
     )
 

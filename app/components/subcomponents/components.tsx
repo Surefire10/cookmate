@@ -45,7 +45,7 @@ function SearchBar({setOpen}:setOpenProp){
     const onSearchClick = (event: React.MouseEvent) =>{
 
 
-        if( searchQuery !=="" && searchQuery !== " "){
+        if(  searchQuery !== " "){
 
             setOpen(false)
             const encodedSearchQuery = encodeURI(searchQuery)
@@ -70,8 +70,8 @@ function SearchBar({setOpen}:setOpenProp){
     return(
         
          
-            <div className={`relative flex row items-center justify-center bg-white w-45`}>
-                <input className='focus:ring-transparent text-black text-sm p-0.5 w-full'
+            <div className={`relative flex row items-center justify-center bg-white w-45 rounded-lg`}>
+                <input className='focus:outline-none text-black text-sm p-2 w-full rounded-lg'
                     placeholder="Search Recipes"
                     onChange={(e)=>{setSearchQuery(e.target.value)}}
                     onKeyUp={(e)=>{onSearch(e)}}
@@ -80,9 +80,9 @@ function SearchBar({setOpen}:setOpenProp){
                     value={searchQuery}
                     >
                 </input>
-                <div className='p-1 hover:shadow cursor-pointer' 
+                <div className=' bg-yellow-500 p-2 hover:shadow cursor-pointer ' 
                     onClick={(e)=>{onSearchClick(e)}} >
-                    <Search className='stroke-yellow-500'/>
+                    <Search stroke="black" />
                  </div>
                 {isFocused?
                 <div className={`absolute top-8 left-0 w-full bg-slate-100 h-fit`}>
